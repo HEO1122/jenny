@@ -276,6 +276,8 @@
 				@RequestMapping("/boardWriteProc.cls")
 				public String BoardList(){}
 			}
+			
+
 		
 
 
