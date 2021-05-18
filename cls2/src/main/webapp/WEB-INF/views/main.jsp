@@ -61,28 +61,28 @@
 			var url = '';
 			switch(tid){
 			case 'cafeLogin':
-				url = '/cls2/member/login.cafe';
+				url = '/cls2/member/login.cls';
 				break;
 			case 'cafeJoin':
-				url = '/cls2/member/join.cafe';
+				url = '/cls2/member/join.cls';
 				break;
 			case 'cafeLogout':
-				url = '/cls2/member/logout.cafe';
+				url = '/cls2/member/logout.cls';
 				break;
 			case 'cafeMyInfo':
-				url = '/cls2/member/myInfo.cafe';
+				url = '/cls2/member/myInfo.cls';
 				break;
 			case 'membList':
-				url = '/cls2/member/memberList.cafe';
+				url = '/cls2/member/memberList.cls';
 				break;
 			case 'gboard':
-				url = '/cls2/gboard/gBoardList.cafe';
+				url = '/cls2/gboard/gBoardList.cls';
 				break;
 			case 'reboard':
-				url = '/cls2/reBoard/reBoardList.cafe';
+				url = '/cls2/reBoard/reBoardList.cls';
 				break;
 			case 'board':
-				url = '/cls2/board/board.cafe';
+				url = '/cls2/board/board.cls';
 				break;
 			}
 			
@@ -97,7 +97,7 @@
 	</form>
 	
 	<div class="w3-content mxw700 w3-center w3-margin-top">
-		<h1 class="w3-margin-top w3-blue w3-card-4 w3-padding">CLS Project</h1>
+		<h1 class="w3-margin-top w3-blue w3-card-4 w3-padding">Spring Project</h1>
 		<div class="w3-margin-top">
 			
 			<!-- 수업 예제 링크 버튼 추가 장소 -->
