@@ -1,0 +1,117 @@
+# day02
+
+1. 서블릿 등록
+	
+	JSP 프로젝트에서 서블릿 등록은 
+		톰캣이 가지고 있는 wb.xml을 이용하던지
+		아니면 프로젝트 내부의 /webContent/WEB-INF/web.xml
+		에 등록을 했었다.
+		
+		이때 두 방법의 차이점은 
+			톰캣의 설정파일을 사용하는 경우는
+			서버안에 있는 모든 프로젝트에 대해서 적용이 되는 설정이고
+			프로젝트 내부의 설정파일(web.xml)에 정의하는 경우는
+			프로젝트에 한정해서 적용되는 설정이다.
+			
+		스프링 역시 서버의 설정파일은 서버에서 사용하는 전역 설정이고
+		프로젝트에 한정해서 적용시킬 설정파일은 
+			/webapp/WEB-INF/web.xml
+		에서 처리하면 된다.
+		
+		이때 두 설정파일이 처리되는 순서는
+		톰캣 서버의 web.xml 파일을 읽어서 먼저 처리하고
+		이후 프로젝트의 /webapp./WEB-INF/web.xml 파일을 읽어서 처리한다.
+		
+	등록 방법 ]
+		
+		1. 서블릿을 등록하고
+			
+			<servlet>
+				<servlet-name>appServlet</servlet-name>
+					==> 서블릿에 부여하는 이름(개발자가 정하면 된다.)
+				<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+					==> 사용할 서블릿 클래스 이름
+						JSP 프로젝트에서는 이 서블릿 클래스를 직접 만들어서 등록했다.
+						스프링에서는 미리 만들어진 서블릿을 사용하게 된다.
+				<init-param>
+					<param-name>contextConfigLocation</param-name>
+					<param-value>/WEB-INF/spring/appServlet/servelt-context.xml</param-value>
+						==> 지정한 서블릿 클래스의 환경 설정을 담당할 xml 파일을 지정하는 부분...
+							이때 파일 이름은 개발자가 정해도 된다.
+							단, 반드시 해당 위치에 파일이 존재해야 한다.
+				</init-param>
+				<load-on-startup>1</load-on-startup>
+					==> 서블릿이 작동할 우선순위를 지정하는 태그...
+			</servlet>
+			
+			참고 ]
+				하나의 스프링에 서블릿은 여러개 만들 수 있다.
+				그리고 각각의 서블릿은 각각 다른 요청을 처리하도록 할 수 있다.
+				
+				예를 들어
+				유저용 서블릿, 관리자용 서블릿을 따로 만들어서 
+				각각이 다른 요청을 처리하도록 할 수 있다.
+				
+				하지만 이때는 서블릿 이름과 환경 설정파일의 이름을 
+				각각 다르게 해야 한다.
+				
+		2. URL 패턴을 지정한다.
+			==> 등록된 서블릿이 어떤 요청을 받았을때 실행할지를 지정하는 부분....
+				
+				이 작업은 서블릿 등록과 반드시 한 싸으로 만들어져야 한다.
+				
+					
+					<servelt-mapping>
+						<servlet-name>appServlet</servlet-name>
+							==> 패턴을 적용시킬 서블릿 이름
+								이 서블릿이름은 서블릿 등록시 기술했던 이름을 써야한다.
+								
+						<url-pattern>/</url-pattern>
+							==> url 패턴
+					</servlet-mapping>
+					
+		참고 ]
+			
+			기타 태그의 의미
+				
+				<context-param>
+					<param-name>contextConfigLocation</param-name>
+					<param-value>/WEB-INF/spring/root-context.xml</param-value>
+				</context-param>
+				
+				==> web.xml 파일에서 프로젝트의 환경설정을 기술하는데
+					이때 내용이 길어지거나 혹은 다른 기능을 작성하는 경우
+					코드를 구분해줘야할 경우는 보조 설정파일을 만들어서 적용시켜준다.
+					우리의 경우는 DataBase 설정과 bean 처리설정을 할 예정이다.
+					
+					
+				<listener>
+					<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+				</listener>
+					==> 필터 처리를 하기 위해서 필터 분석 도구를 등록하는 부분
+						스프링에서 강력하게 요청하는 기능이 몇가지 있는데
+						그 기능을 처리하기 위해서 필요한 분석 도구를 등록하는 부분...
+						
+=============================================================================================================
+
+					
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+		
