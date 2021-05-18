@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class Test01 {
 	
-	@RequestMapping("/test.tst")
-	public String getTest() {
+	@RequestMapping(value="/test.tst")
+	/*
+	 * @RequestMapping(path="/test.tst")
+	 */	public String getTest() {
 		return "test01/Test01";
 	}
 }
