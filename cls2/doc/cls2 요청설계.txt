@@ -1,0 +1,145 @@
+# 스프링 예제 요청설계
+
+1. 메인 페이지 요청 1
+	
+	요청내용	:	/cls2/
+	파라미터	:	무
+	컨트롤러	:	com.increpas.home.MainController
+	처리함수	:	getMain()
+	뷰			:	/WEB-INF/views/main.jsp
+
+2. 메인 페이지 요청 2
+	
+	요청내용	:	/cls2/main.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Test1
+	처리함수	:	getMain()
+	뷰			:	/WEB-INF/views/main.jsp
+	
+===========================================================================
+
+############# 회원관련 요청 ###############################################
+
+1. 로그인 뷰 요청
+	
+	요청내용	:	/cls2/member/login.cls
+	파라미터	:	무(HttpServletSession)
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	getLogin()
+	뷰			:	/WEB-INF/views/member/login.jsp
+
+2. 로그인 처리 요청
+	
+	요청내용	:	/cls2/member/loginProc.cls
+	파라미터	:	id, pw
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	loginProc()
+	뷰			:	Redirect ]
+						성공 : /cls2/main.cls
+						실패 : /cls2/member/login.cls
+						
+
+############################################################################
+
+# 	방명록 관련 요청 설계 #
+
+1. 방명록 폼 보기 요청
+	
+	요청내용	:	/cls2/gBoard/gBoardList.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.GuestBoard
+	처리함수	:	gBoardList()
+	뷰			:	/WEB-INF/views/gBoard/gBoardList.jsp
+
+2. 방명록 글쓰기 요청
+	
+	요청내용	:	/cls2/gBoard/gBoardWrite.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.GuestBoard
+	처리함수	:	gBoardWrite()
+	뷰			:	/WEB-INF/views/gBoard/gBoardWrite.jsp
+
+3. 방명록 글등록 처리 요청
+	
+	요청내용	:	/cls2/gBoard/gBoardWriteProc.cls
+	파라미터	:	mno, body
+	컨트롤러	:	com.increpas.cls2.controller.GuestBoard
+	처리함수	:	gBoardWriteProc()
+	뷰			:	Redirect ]
+						성공 : /cls2/gBoard/gBoardList.cls
+						실패 : /cls2/gBoard/gBoardWrite.cls
+						
+############################################################################
+# 댓글 게시판 관련 요청 설계 #
+
+
+1. 게시글 리스트 보기 요청
+	요청내용	:	/cls2/reBoard/reBoardList.cls
+	파라미터	:	무(nowPage)
+	컨트롤러	:	com.increpas.cls2.controller.ReBoard
+	처리함수	:	reBoardList()
+	뷰			:	/WEB-INF/views/reBoard/reBoradList.jsp
+
+	
+2. 게시글 쓰기 폼보기 요청
+	요청내용	:	/cls2/reBoard/reBoardWrite.cls
+	파라미터	:	무(nowPage ??? )
+	컨트롤러	:	com.increpas.cls2.controller.ReBoard
+	처리함수	:	reBoardWrite()
+	뷰			:	/WEB-INF/views/reBoard/reBoradWrite.jsp
+	
+3. 게시글 등록 요청
+	요청내용	:	/cls2/reBoard/reBoardWriteProc.cafe
+	파라미터	:	mno, title, body
+	컨트롤러	:	com.increpas.cls2.controller.ReBoard
+	처리함수	:	reBoardWriteProc()
+	뷰			:	
+					redirect ]
+						성공 : /cafe/reBoard/reBoardList.cafe
+						실패 : /cafe/reBoard/reBoardWrite.cafe
+	
+4. 댓글 쓰기 폼보기 요청
+	요청내용	:	/cls2/reBoard/reBoardReply.cls
+	파라미터	:	rno, nowPage
+	컨트롤러	:	com.increpas.cls2.controller.ReBoard
+	처리함수	:	reBoardReply()
+	뷰			:	/WEB-INF/views/reBoard/reBoradReply.jsp
+	
+5. 댓글 등록 요청
+	요청내용	:	/cls2/reBoard/reBoardReplyProc.cls
+	파라미터	:	upno, title, body, nowPage
+	컨트롤러	:	com.increpas.cls2.controller.ReBoard
+	처리함수	:	reBoardReplyProc()
+	뷰			:	
+					redirect ]
+						성공 : /cls2/reBoard/reBoardList.cls
+						실패 : /cls2/reBoard/reBoardReply.cls
+	
+6. 글 삭제 처리 요청
+	요청내용	:	/cls2/reBoard/reBoardDel.cls
+	파라미터	:	rno, nowPage
+	컨트롤러	:	com.increpas.cls2.controller.ReBoard
+	처리함수	:	reBoardDel()
+	뷰			:	
+					redirect ]
+							성공&실패  : /cls2/reBoard/reBoardList.cls
+	
+7. 글 수정 폼보기 요청
+	요청내용	:	/cls2/reBoard/reBoardEdit.cls
+	파라미터	:	rno, nowPage
+	컨트롤러	:	com.increpas.cls2.controller.ReBoard
+	처리함수	:	reBoardEdit()
+	뷰			:	/WEB-INF/views/reboard/reBoradEdit.jsp
+	
+8. 글 수정 처리 요청
+	요청내용	:	/cls2/reBoard/reBoardEditProc.cls
+	파라미터	:	rno(필수), title(선택), body(선택)
+	컨트롤러	:	com.increpas.cls2.controller.ReBoard
+	처리함수	:	reBoardEditProc()
+	뷰			:	
+					redirect ]
+						성공 : /cls2/reBoard/reBoardList.cls
+						실패 : /cls2/reBoard/reBoardEdit.cls
+	
+	
+	
