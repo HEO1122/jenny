@@ -1,6 +1,7 @@
 package com.increpas.cls2.controller;
 
 import org.springframework.stereotype.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * 	이 클래스는 방명록 관련 요청을 처리할 컨트롤러 클래스
@@ -14,6 +15,11 @@ import org.springframework.stereotype.*;
  *
  */
 @Controller
+@RequestMapping("/gBoard")
 public class GuestBoard {
-
+	
+	@RequestMapping("/gBoardList.cls")
+	public String gBoardList() {
+		return "gBoard/gBoardList";
+	}
 }

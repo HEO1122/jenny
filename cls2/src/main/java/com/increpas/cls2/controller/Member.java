@@ -1,15 +1,17 @@
 package com.increpas.cls2.controller;
 
-import java.io.IOException;
+import java.io.*;
 
-import javax.servlet.RequestDispatcher;
+import javax.servlet.*;
 import javax.servlet.http.*;
 
+import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
-import org.springframework.web.servlet.view.RedirectView;
+import org.springframework.web.servlet.view.*;
 
+import com.increpas.cls2.dao.*;
 import com.increpas.cls2.vo.*;
 
 /**
@@ -25,6 +27,8 @@ import com.increpas.cls2.vo.*;
 // 이 클래스의 함수를 요청할 때 공통적으로 회원관련된 요청을 할 것이고 
 // 그때마다 앞에 붙여줄 경로는 컨트롤러에서 공통적으로 처리하기로 하자.
 public class Member {
+	@Autowired
+	MemberDao mDao;
 	
 	@RequestMapping("/login.cls")
 	public ModelAndView getLogin(HttpSession session, ModelAndView mv, RedirectView rv) {
@@ -81,9 +85,21 @@ public class Member {
 		return mv;
 	}
 	
+	/*
+		회원가입 아이디체크 요청 처리
+	 */
+	@RequestMapping("/idCheck.cls")
+	public String idCheck(String id) {
+		int cnt = mDao.getIdCnt(id);
+		System.out.println("************* idCheck cnt : " + cnt);
+		
+		return null;
+	}
+	
 	public boolean isLogin(HttpSession session) {
 		String sid = (String) session.getAttribute("SID");
 		
 		return (sid == null) ? false : true;
 	}
+	
 }

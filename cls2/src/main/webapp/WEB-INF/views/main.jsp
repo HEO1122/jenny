@@ -76,7 +76,7 @@
 				url = '/cls2/member/memberList.cls';
 				break;
 			case 'gboard':
-				url = '/cls2/gboard/gBoardList.cls';
+				url = '/cls2/gBoard/gBoardList.cls';
 				break;
 			case 'reboard':
 				url = '/cls2/reBoard/reBoardList.cls';

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mSQL">
+<!--  
+	질의명령을 기술할 xml문서는 
+	root 태그가 mapper 태그로 시작해야 한다.
+	그리고 이 태그의 속성으로 namespace를 줘야하는데
+	이 속성의 의미는 마이바티스에서 사용하는 질의명령 파일들을 구분해주는 용도이다.
+-->
+	<!-- 회원가입시 아이디 체크 질의 명령 -->
+	<select id="idCheck" resultType="int" parameterType="string">
+		SELECT
+			count(*)
+		FROM
+			member
+		WHERE
+			id = #{sid}
+	</select>
+
+</mapper>
