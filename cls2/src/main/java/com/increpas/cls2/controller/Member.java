@@ -1,6 +1,7 @@
 package com.increpas.cls2.controller;
 
 import java.io.*;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.*;
@@ -113,19 +114,38 @@ public class Member {
 		return mv;
 	}
 	
+	@RequestMapping("/joinProc.cls")
+	public ModelAndView joinProc(MemberVO mVO, ModelAndView mv, 
+									HttpSession session, RedirectView rv) {
+		int cnt = mDao.addMember(mVO);
+		
+		if(cnt == 1) {
+			session.setAttribute("SID", mVO.getId());
+			System.out.println("############### mno : " + mVO.getMno());
+			rv.setUrl("/cls2/");
+		} else {
+			rv.setUrl("/cls2/member/join.cls");
+		}
+		
+		mv.setView(rv);
+		return mv;
+	}
+	
+	
 	/*
 		회원가입 아이디체크 요청 처리
 	 */
-	@RequestMapping("/idCheck.cls")
+	@RequestMapping(value="/idCheck.cls", method=RequestMethod.POST, params="id")
 	@ResponseBody
-	public String idCheck(String id) {
+	public HashMap<String, String> idCheck(String id) {
 		int cnt = mDao.getIdCnt(id);
-		String result = "NO";
+		HashMap<String, String> map = new HashMap<String, String>();
+		map.put("result", "NO");
 		if(cnt != 1) {
-			result = "OK";
+			map.put("result", "OK");
 		}
 		
-		return result;
+		return map;
 	}
 	
 	@RequestMapping("/memberList.cls")

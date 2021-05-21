@@ -59,7 +59,7 @@
 			var smail = $('#mail').val();
 			var stel = $('#tel').val();
 			var sgen = $('[name="gen"]:checked').val();
-			var savt = $('[name="avt"]:checked').val();
+			var savt = $('[name="ano"]:checked').val();
 			
 			// 유효성 검사
 			if(!(sid && spw && smail && stel && sgen && savt)){
@@ -98,13 +98,14 @@
 					$.ajax({
 						url: '/cls2/member/idCheck.cls',
 						type: 'post',
-						dataType: 'text',
+						dataType: 'json',
 						data: {
 							id: sid
 						},
 						success: function(data){
 							 
-							var result = data;
+							var result = data.result;
+							alert(result);
 							if(result == 'OK'){
 								$('#idmsg').html('*** 사용 가능한 아이디 입니다. ***');
 								$('#idmsg').removeClass('w3-text-red').addClass('w3-text-blue');
@@ -211,7 +212,7 @@
 						 		<label for="mavt${idx}">
 						 			<img src="/cls2/img/avatar/img_avatar${idx}.png" class="w3-col avtimg">
 						 		</label>
-						 		<input type="radio" name="avt" id="mavt${idx}" value="${idx}">
+						 		<input type="radio" name="ano" id="mavt${idx}" value="1${idx}">
 						 	</div>
 				 	</c:forEach>
 						 </div>
@@ -221,7 +222,7 @@
 						 		<label for="favt${idx}">
 						 			<img src="/cls2/img/avatar/img_avatar${idx}.png" class="w3-col avtimg">
 						 		</label>
-						 		<input type="radio" name="avt" id="favt${idx}" value="${idx}">
+						 		<input type="radio" name="ano" id="favt${idx}" value="1${idx}">
 						 	</div>
 				 	</c:forEach>
 				 		</div>

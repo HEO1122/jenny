@@ -61,6 +61,22 @@
 	컨트롤러	:	com.increpas.cls2.controller.Member
 	처리함수	:	memberInfo()
 	뷰			:	/WEB-INF/views/member/memberInfo.jsp
+	
+6. 회원정보 수정 폼보기 요청
+
+	요청내용	:	/cls2/member/myInfoEdit.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	memberEdit()
+	뷰			:	/WEB-INF/views/member/myInfoEdit.jsp
+	
+7. 내정보 보기 요청
+
+	요청내용	:	/cls2/member/myInfo.cls
+	파라미터	:	mno
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	myInfo()
+	뷰			:	/WEB-INF/views/member/memberInfo.jsp
 
 						
 

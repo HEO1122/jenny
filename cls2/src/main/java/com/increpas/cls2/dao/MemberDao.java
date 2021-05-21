@@ -40,4 +40,9 @@ public class MemberDao {
 	public MemberVO getMemberInfo(int mno) {
 		return sqlSession.selectOne("mSQL.memberNoInfo", mno);
 	}
+	
+	// 회원정보 입력 전담 처리함수
+	public int addMember(MemberVO mVO) {
+		return sqlSession.insert("mSQL.addMember", mVO);
+	}
 }
