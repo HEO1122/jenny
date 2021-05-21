@@ -1,6 +1,7 @@
 package com.increpas.cls2.controller;
 
 import java.io.*;
+import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -67,21 +68,48 @@ public class Member {
 		if(isLogin(session)) {
 		} else {
 			// 이 부분에서 로그인 처리...
+			
+			// 파라미터 데이터 출력
+			/*
+			System.out.println("********** parameter id : " + id);
+			System.out.println("********** parameter pw : " + pw);
+			
+			System.out.println("********** parameter id : " + mVO.getId());
+			System.out.println("********** parameter pw : " + mVO.getPw());
+			System.out.println("********** parameter ano : " + mVO.getAno());
+			System.out.println(mVO);
+			 */
+			int cnt = mDao.getLogin(mVO);
+			if(cnt == 1) {
+				session.setAttribute("SID", mVO.getId());
+			} else {
+				view = "/cls2/member/login.cls";
+			}
 		}
 		
-		
-		// 파라미터 데이터 출력
-		/*
-		System.out.println("********** parameter id : " + id);
-		System.out.println("********** parameter pw : " + pw);
-		*/
-		System.out.println("********** parameter id : " + mVO.getId());
-		System.out.println("********** parameter pw : " + mVO.getPw());
-		System.out.println("********** parameter ano : " + mVO.getAno());
-		System.out.println(mVO);
 		rv.setUrl(view);
 		
+		mv.setView(rv); // 리다이렉트 시킬때 사용하는 함수
+		/*
+			forward 방식으로 뷰를 호출하는 방법
+				mv.setViewName("뷰");
+		 */
+		return mv;
+	}
+	
+	@RequestMapping("/logout.cls")
+	public ModelAndView logout(HttpSession session, ModelAndView mv, RedirectView rv) {
+		session.removeAttribute("SID");
+		rv.setUrl("/cls2/");
 		mv.setView(rv);
+		return mv;
+	}
+	
+	@RequestMapping("/join.cls")
+	public ModelAndView joinForm(ModelAndView mv) {
+		String view = "member/join";
+		
+		mv.setViewName(view);
 		return mv;
 	}
 	
@@ -89,11 +117,45 @@ public class Member {
 		회원가입 아이디체크 요청 처리
 	 */
 	@RequestMapping("/idCheck.cls")
+	@ResponseBody
 	public String idCheck(String id) {
 		int cnt = mDao.getIdCnt(id);
-		System.out.println("************* idCheck cnt : " + cnt);
+		String result = "NO";
+		if(cnt != 1) {
+			result = "OK";
+		}
 		
-		return null;
+		return result;
+	}
+	
+	@RequestMapping("/memberList.cls")
+	public ModelAndView memberList(ModelAndView mv) {
+		// 데이터베이스에서 리스트 조회하고
+		List list = mDao.getMembList();
+		
+		// 리스트 뷰에 심고
+		mv.addObject("LIST", list);
+		/*
+			spring에서 뷰에 데이터를 전달 하는 방법
+				addObject("키값", 데이터);
+				==> 
+					req.setAttribute("키값", 데이터);
+					와 동일한 역할을 하는 함수
+		 */
+		mv.setViewName("member/memberList");
+		return mv;
+	}
+	
+	// 회원정보조회 요청 처리함수
+	@RequestMapping(value="/memberInfo.cls", params="mno", method=RequestMethod.POST)
+	public ModelAndView memberInfo(ModelAndView mv, int mno) {
+		// 데이터베이스 조회
+		MemberVO mVO = mDao.getMemberInfo(mno);
+		
+		// 데이터 뷰에 전달하고
+		mv.addObject("DATA", mVO);
+		mv.setViewName("member/memberInfo");
+		return mv;
 	}
 	
 	public boolean isLogin(HttpSession session) {

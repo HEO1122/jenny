@@ -5,7 +5,7 @@ import java.sql.*;
 
 public class MemberVO {
 	private int mno, ano;
-	private String name, id, pw, mail, tel, avatar, gen, sdate;
+	private String name, id, pw, mail, tel, savename, avatar, gen, sdate;
 	private Date jDate;
 	private Time jTime;
 	public int getMno() {
@@ -49,6 +49,12 @@ public class MemberVO {
 	}
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+	public String getSavename() {
+		return savename;
+	}
+	public void setSavename(String savename) {
+		this.savename = savename;
 	}
 	public String getAvatar() {
 		return avatar;

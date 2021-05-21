@@ -5,11 +5,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3-colors-flat.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
-<script type="text/javascript" src="/cafe/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/cafe/js/w3color.js"></script>
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3-colors-flat.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/user.css">
+<script type="text/javascript" src="/cls2/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/cls2/js/w3color.js"></script>
 <style type="text/css">
 	.mbtn {
 		cursor: pointer;
@@ -18,7 +18,7 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#hbtn').click(function(){
-			$(location).attr('href', '/cafe/main.cafe');
+			$(location).attr('href', '/cls2/main.cls');
 		});
 		
 		$('.mbtn').click(function(){
@@ -36,7 +36,7 @@
 </script>
 </head>
 <body>
-	<form method="POST" action="/cafe/member/memberInfo.cafe" id="frm" name="frm">
+	<form method="POST" action="/cls2/member/memberInfo.cls" id="frm" name="frm">
 		<input type="hidden" name="mno" id="mno" >
 	</form>
 	
@@ -60,7 +60,7 @@
 	</c:if>
 				<div class="w3-col m2 w3-border-right w3-border-teal">${data.mno}</div>
 				<div class="w3-col m3 w3-border-right w3-border-teal">${data.name}</div>
-				<div class="w3-col m2 w3-border-right w3-border-teal">${data.gen}</div>
+				<div class="w3-col m2 w3-border-right w3-border-teal">${(data.gen eq 'M') ? '남자' : '여자'}</div>
 				<div class="w3-col m5">${data.sdate}</div>
 			</div>
 </c:forEach>

@@ -19,5 +19,61 @@
 		WHERE
 			id = #{sid}
 	</select>
-
+	
+	<!-- 로그인 처리 질의 명령 -->
+	<select id="login" resultType="int" parameterType="mVO">
+		SELECT
+			count(*)
+		FROM
+			member
+		WHERE
+			isshow = 'Y'
+			AND id = #{id}
+			AND pw = #{pw}
+	</select>
+	<!-- 
+		resultType		: 질의명령의 실행결과 발생하는 한행을 저장할 수 있는 데이터타입을 적습니다.
+							select 질의 명령에서만 추가되는 속성이고
+							반드시 한행의 결과만 담을 수 있는 데이터타입을 기술하면 된다.
+							
+		parameterType	: 질의명령을 완성해야 하는 경우 데이터를 전달 받아서 채워줘야 할 것이다.
+							이때 전달 받을 데이터 타입을 기술한다.
+							
+		주의 사항 ]
+			반드시 한가지 타입만 사용할 수 있다.
+	 -->
+	
+	<!-- 회원 정보 조회 질의명령 -->
+	<select id="memberIdInfo" resultType="mVO" parameterType="string">
+		SELECT
+			mno, id, name, mail, tel, member.gen, ano, savename, joindate jDate, joindate jTime
+		FROM
+			member, avatar
+		WHERE
+			avt = ano
+			AND isShow = 'Y'
+			AND id = #{id}
+	</select>
+	<select id="memberNoInfo" resultType="mVO" parameterType="int">
+		SELECT
+			mno, id, name, mail, tel, member.gen, ano, savename, joindate jDate, joindate jTime
+		FROM
+			member, avatar
+		WHERE
+			avt = ano
+			AND isShow = 'Y'
+			AND mno = #{mno}
+	</select>
+	
+	<!-- 회원리스트 조회 질의명령 -->
+	<select id="membList" resultType="mVO" >
+		SELECT
+			mno, name, gen, joindate jDate, joindate jTime
+		FROM
+			member
+		WHERE
+			isShow = 'Y'
+		ORDER BY
+			mno DESC
+	</select>
 </mapper>

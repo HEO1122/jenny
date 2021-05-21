@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
-<script type="text/javascript" src="/cafe/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/cafe/js/w3color.js"></script>
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/user.css">
+<script type="text/javascript" src="/cls2/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/cls2/js/w3color.js"></script>
 <style type="text/css">
 	.avtimg {
 		width: 100px;
@@ -48,7 +48,7 @@
 		});
 		
 		$('#hbtn').click(function(){
-			$(location).attr('href', '/cafe/main.cafe');
+			$(location).attr('href', '/cls2/main.cls');
 		});
 		
 		$('#jbtn').click(function(){
@@ -88,7 +88,7 @@
 				$('#idmsg').html('*** 사용가능한 형식입니다. ***');
 				$('#idck').removeClass("btn w3-center").addClass('w3-button');
 				$('#idmsg').stop().slideDown(300);
-				
+				$('.w3-button#idck').unbind('click');
 				$('.w3-button#idck').click(function(){
 					// 할일
 					// 아이디 읽고
@@ -96,14 +96,15 @@
 					var sid = $('#id').val();
 					
 					$.ajax({
-						url: '/cafe/member/idcheck.cls',
+						url: '/cls2/member/idCheck.cls',
 						type: 'post',
-						dataType: 'json',
+						dataType: 'text',
 						data: {
 							id: sid
 						},
 						success: function(data){
-							var result = data.result;
+							 
+							var result = data;
 							if(result == 'OK'){
 								$('#idmsg').html('*** 사용 가능한 아이디 입니다. ***');
 								$('#idmsg').removeClass('w3-text-red').addClass('w3-text-blue');
@@ -113,6 +114,7 @@
 								$('#idmsg').removeClass('w3-text-blue').addClass('w3-text-red');
 								$('#idmsg').stop().slideDown(500);
 							}
+							
 						},
 						error: function(){
 							alert('### 통신 실패 ###');
@@ -152,8 +154,8 @@
 <body>
 	<div class="w3-content w3-margin-top mxw700">
 		<!-- 타이틀 -->
-		<h1 class="w3-pink w3-center w3-padding w3-card-4">Cafe 회원가입</h1>
-		<form method="POST" action="/cafe/member/joinProc.cafe" name="frm" id="frm"
+		<h1 class="w3-pink w3-center w3-padding w3-card-4">cls2 회원가입</h1>
+		<form method="POST" action="/cls2/member/joinProc.cls" name="frm" id="frm"
 			class="w3-col w3-margin-top w3-margin-bottom w3-padding w3-card-4">
 			<div>
 				<label for="name" class="w3-col s3 w3-right-align w3-margin-top clrgrey ft14 mgb10">회원이름 : </label>
@@ -207,7 +209,7 @@
 					<c:forEach var="idx" begin="1" end="3">
 						 	<div class="avtbox">
 						 		<label for="mavt${idx}">
-						 			<img src="/cafe/img/avatar/img_avatar${idx}.png" class="w3-col avtimg">
+						 			<img src="/cls2/img/avatar/img_avatar${idx}.png" class="w3-col avtimg">
 						 		</label>
 						 		<input type="radio" name="avt" id="mavt${idx}" value="${idx}">
 						 	</div>
@@ -217,7 +219,7 @@
 					<c:forEach var="idx" begin="4" end="6">
 						 	<div class="avtbox">
 						 		<label for="favt${idx}">
-						 			<img src="/cafe/img/avatar/img_avatar${idx}.png" class="w3-col avtimg">
+						 			<img src="/cls2/img/avatar/img_avatar${idx}.png" class="w3-col avtimg">
 						 		</label>
 						 		<input type="radio" name="avt" id="favt${idx}" value="${idx}">
 						 	</div>

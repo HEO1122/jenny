@@ -37,6 +37,31 @@
 	뷰			:	Redirect ]
 						성공 : /cls2/main.cls
 						실패 : /cls2/member/login.cls
+
+3. 로그아웃 처리 요청
+	
+	요청내용	:	/cls2/member/logout.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	logout()
+	뷰			:	Redirect ] /cls2/main.cls
+	
+4. 회원리스트 폼보기 요청
+
+	요청내용	:	/cls2/member/memberList.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	memberList()
+	뷰			:	/WEB-INF/views/member/memberList.jsp
+	
+5. 회원정보 보기 요청
+
+	요청내용	:	/cls2/member/memberInfo.cls
+	파라미터	:	mno
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	memberInfo()
+	뷰			:	/WEB-INF/views/member/memberInfo.jsp
+
 						
 
 ############################################################################
