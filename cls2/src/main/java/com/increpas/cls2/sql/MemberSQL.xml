@@ -77,13 +77,25 @@
 			mno DESC
 	</select>
 	
+	<!-- 성별 아바타 리스트 질의명령 -->
+	<select id="avtGenList" resultType="mVO" parameterType="string">
+		SELECT
+			ano, savename avatar, gen
+		FROM
+			avatar
+		WHERE
+			gen = #{gen}
+		ORDER BY
+			ano
+	</select>
+	
 	<insert id="addMember" parameterType="mVO">
-		<selectKey keyProperty="mno" resultType="int" order="BEFORE">
-			SELECT
-				NVL(MAX(mno) + 1, 1001)
-			FROM
-				member
-		</selectKey>
+			<selectKey keyProperty="mno" resultType="int" order="BEFORE">
+				SELECT
+					NVL(MAX(mno) + 1, 1001)
+				FROM
+					member
+			</selectKey>
 		INSERT INTO
 			member(mno, id, pw, name, mail, tel, gen, avt)
 		VALUES(
@@ -91,4 +103,46 @@
 			#{mail}, #{tel}, #{gen}, #{ano}
 		)
 	</insert>
+	
+	<update id="editMyInfo" parameterType="mVO">
+		UPDATE
+			member
+		<trim prefix="SET" suffixOverrides=",">
+			<if test="pw neq null">
+				pw = #{pw},
+			</if>
+			<if test="mail neq null">
+				mail = #{mail},
+			</if>
+			<if test="tel neq null">
+				tel = #{tel},
+			</if>
+			<if test="ano neq 0">
+				avt = #{ano},
+			</if>
+		</trim>
+		WHERE
+			id = #{id}
+	</update>
+	
+	<update id="editMyInfo1" parameterType="mVO">
+		UPDATE
+			member
+		<set>
+			<if test="pw neq null">
+				pw = #{pw},
+			</if>
+			<if test="mail neq null">
+				mail = #{mail},
+			</if>
+			<if test="tel neq null">
+				tel = #{tel},
+			</if>
+			<if test="ano neq 0">
+				avt = #{ano},
+			</if>
+		</set>
+		WHERE
+			id = #{id}
+	</update>
 </mapper>

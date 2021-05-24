@@ -104,20 +104,20 @@
 			<div class="w3-col w3-padding w3-border-bottom">
 				<h4 class="w3-col s4 w3-text-grey">Member Request</h4>
 				<div class="w3-col s8">
-		<c:if test="${empty SID }">
+		<c:if test="${empty SID}">
 					<div class="w3-col w3-deep-purple w3-margin-bottom w3-button cafeMBtn" id="cafeLogin">
-						<h4>Cafe Login</h4>
+						<h4>Cls2 Login</h4>
 					</div>
 					<div class="w3-col w3-blue w3-margin-bottom w3-button cafeMBtn" id="cafeJoin">
-						<h4>Cafe Join</h4>
+						<h4>Cls2 Join</h4>
 					</div>
 		</c:if>
-		<c:if test="${not empty SID }">
+		<c:if test="${not empty SID}">
 					<div class="w3-col w3-purple w3-margin-bottom w3-button cafeMBtn" id="cafeMyInfo">
-						<h4>Cafe 내 정보보기</h4>
+						<h4>Cls2 내 정보보기</h4>
 					</div>
 					<div class="w3-col w3-deep-purple w3-margin-bottom w3-button cafeMBtn" id="cafeLogout">
-						<h4>Cafe 로그아웃</h4>
+						<h4>Cls2 로그아웃</h4>
 					</div>
 					<div class="w3-col w3-blue w3-margin-bottom w3-button cafeMBtn" id="membList">
 						<h4>회원 목록 보기</h4>

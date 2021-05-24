@@ -102,10 +102,9 @@
 						data: {
 							id: sid
 						},
-						success: function(data){
-							 
-							var result = data.result;
-							alert(result);
+						success: function(obj){
+							var result = obj.result;
+							alert('id : ' + obj.id);
 							if(result == 'OK'){
 								$('#idmsg').html('*** 사용 가능한 아이디 입니다. ***');
 								$('#idmsg').removeClass('w3-text-red').addClass('w3-text-blue');
@@ -137,7 +136,7 @@
 		}
 		
 		function mailCk(){
-			var exp = /^[a-zA-Z!_+%*]{2,8}@[a-z]{2,}\.[a-z]{2,3}([a-z]{2})?$/;
+			var exp = /^[a-zA-Z!_+%*]{2,8}@[a-z]{2,}\.[a-z]{2,3}(\.[a-z]{2})?$/;
 			var smail = $('#mail').val();
 			return exp.test(smail);
 		}

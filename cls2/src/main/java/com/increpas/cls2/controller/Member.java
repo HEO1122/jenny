@@ -107,7 +107,16 @@ public class Member {
 	}
 	
 	@RequestMapping("/join.cls")
-	public ModelAndView joinForm(ModelAndView mv) {
+	public ModelAndView joinForm(ModelAndView mv, RedirectView rv, HttpSession session) {
+		// 로그인 검사하고
+		if(isLogin(session)) {
+			rv.setUrl("/cls2/main.cls");
+			mv.setView(rv);
+			
+			// 반환하고 함수 실행 종료하고
+			return mv;
+		}
+		
 		String view = "member/join";
 		
 		mv.setViewName(view);
@@ -117,6 +126,14 @@ public class Member {
 	@RequestMapping("/joinProc.cls")
 	public ModelAndView joinProc(MemberVO mVO, ModelAndView mv, 
 									HttpSession session, RedirectView rv) {
+		// 로그인 검사하고
+		if(isLogin(session)) {
+			rv.setUrl("/cls2/main.cls");
+			mv.setView(rv);
+			// 반환하고 함수 실행 종료하고
+			return mv;
+		}
+		
 		int cnt = mDao.addMember(mVO);
 		
 		if(cnt == 1) {
@@ -139,8 +156,63 @@ public class Member {
 	@ResponseBody
 	public HashMap<String, String> idCheck(String id) {
 		int cnt = mDao.getIdCnt(id);
+		
+/*
+	JSP 프로젝트에서는 외부 API를 사용해서 간단하게 비동기 통신의 결과문서를
+	만들어 줄수도 있었지만 우리의 경우는
+	직접 응답 문서를 만들어주는 코드를 작성해서 응답했었다.
+		
+		예 ]
+			
+			result 라는 키값을 갖는 JSON 데이터를 만들경우
+			
+			pw.println("{");
+			pw.println("\"result\": \"" + 결과값변수 + "\"");
+			pw.println("}");
+			
+		의 형태로 작업을 했었는데
+		이 작업이 상당히 불편하다.
+		
+		자바의 객체를 비동기 통신 응답문서(JSON 데이터)로 만들어주는 외부 API가 있는데
+		gson, jackson 이 있다.
+		
+		두가지 모두 자바 객체를 응답 문서로 만들어주는 역할 하고 있다.
+		
+		스프링에서는 
+		jackson-core 에서 이 응답문서를 만들어주는 기능을 편하게 제공해주고 있고
+		사용하는 방법은
+		 	1. 처리함수에 @ResponseBody 어노테이션을 붙여서 처리
+		 	2. 반환값 에 사용할 변수 앞에 @ResponseBody 라고 붙여주는 방법
+		 	
+		 	예 ]
+		 		1. 
+		 		@ResponseBody 
+		 		public String getData(){
+		 			String sid = "euns";
+		 			return sid;
+		 		}
+		 		
+		 		==> 응답 문서 내용
+		 				euns
+		 				
+		 		2. 
+		 		@ResponseBody 
+		 		public HashMap getData(){
+		 			String sid = "euns";
+		 			HashMap map = new HashMap();
+		 			map.put("id", sid);
+		 			return map;
+		 		}
+		 		
+		 		==> 응답 문서 내용
+		 				{
+		 					"id": "euns"
+		 				}
+		 		
+ */
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("result", "NO");
+		map.put("id", id);
 		if(cnt != 1) {
 			map.put("result", "OK");
 		}
@@ -166,6 +238,30 @@ public class Member {
 		return mv;
 	}
 	
+	// 내정보조회 요청 처리함수
+	@RequestMapping("/myInfo.cls")
+	public ModelAndView myInfo(ModelAndView mv, HttpSession session, RedirectView rv) {
+		// 할일
+		// 1. 로그인검사
+		if(isLogin(session)) {
+			// 2. 아이디 꺼내오고
+			String sid = (String) session.getAttribute("SID");
+			// 3. 데이터베이스 작업하고
+			MemberVO mVO = mDao.getMyInfo(sid);
+			// 4. 만들어진 데이터 뷰에 보내고
+			mv.addObject("DATA", mVO);
+			// 5. 뷰를 정하고
+			mv.setViewName("member/memberInfo");
+		} else {
+			// 로그인 안한 경우
+			// 로그인 페이지로 보낸다.
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+		}
+		// 6. 반환값반환하고 
+		return mv;
+	}
+	
 	// 회원정보조회 요청 처리함수
 	@RequestMapping(value="/memberInfo.cls", params="mno", method=RequestMethod.POST)
 	public ModelAndView memberInfo(ModelAndView mv, int mno) {
@@ -175,6 +271,54 @@ public class Member {
 		// 데이터 뷰에 전달하고
 		mv.addObject("DATA", mVO);
 		mv.setViewName("member/memberInfo");
+		return mv;
+	}
+	
+	// 내 정보 수정 폼보기 요청 처리함수
+	@RequestMapping("/myInfoEdit.cls")
+	public ModelAndView memberEdit(ModelAndView mv, HttpSession session, RedirectView rv) {
+		// 로그인 검사하고
+		if(!isLogin(session)) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			// 반환하고 함수 실행 종료하고
+			return mv;
+		}
+		
+		// 아이디 꺼내고
+		String sid = (String)session.getAttribute("SID");
+		// 데이터베이스 조회하고
+		MemberVO mVO = mDao.getMyInfo(sid);
+		// 내정보를 조회했으면 내 성별에 맞는 아바타리스트를 조회한다.
+		List list = mDao.avtGenList(mVO.getGen());
+		
+		// 데이터 뷰에 심고
+		mv.addObject("DATA", mVO);
+		mv.addObject("LIST", list);
+		// 뷰 부르고
+		mv.setViewName("member/myInfoEdit");
+		// 데이터 반환하고
+		return mv;
+	}
+	
+	// 내 정보 수정 처리 요청 처리함수
+	@RequestMapping("/myInfoEditProc.cls")
+	public ModelAndView memberEditProc(MemberVO mVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+		// 로그인 검사하고
+		if(!isLogin(session)) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			// 반환하고 함수 실행 종료하고
+			return mv;
+		}
+		
+		int cnt = mDao.updateInfo(mVO);
+		String view = "/cls2/member/myInfo.cls";
+		if(cnt != 1) {
+			view = "/cls2/member/myInfoEdit.cls";
+		}
+		rv.setUrl(view);
+		mv.setView(rv);
 		return mv;
 	}
 	

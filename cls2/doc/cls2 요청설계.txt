@@ -73,11 +73,48 @@
 7. 내정보 보기 요청
 
 	요청내용	:	/cls2/member/myInfo.cls
-	파라미터	:	mno
+	파라미터	:	무(session.SID)
 	컨트롤러	:	com.increpas.cls2.controller.Member
 	처리함수	:	myInfo()
 	뷰			:	/WEB-INF/views/member/memberInfo.jsp
+	
+8. 회원가입 폼 보기 요청
 
+	요청내용	:	/cls2/member/join.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	joinForm()
+	뷰			:	/WEB-INF/views/member/join.jsp
+	
+9. id 체크 처리 요청
+	
+	요청내용	:	/cls2/member/idCheck.cls
+	파라미터	:	id
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	idCheck()
+	뷰			:	ajax	- json || text
+	
+10. 회원가입 처리 요청
+
+	요청내용	:	/cls2/member/joinProc.cls
+	파라미터	:	무
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	joinProc()
+	뷰			:	
+					redirect ]
+						성공	: /cls2/main.cls
+						실패	: /cls2/member/join.cls
+	
+11. 내정보 수정 처리 요청
+
+	요청내용	:	/cls2/member/myInfoEditProc.cls
+	파라미터	:	MemberVO(pw, mail, tel, ano)
+	컨트롤러	:	com.increpas.cls2.controller.Member
+	처리함수	:	myInfoEditProc()
+	뷰			:	
+					redirect ]
+						성공	: /cls2/member/myInfo.cls
+						실패	: /cls2/member/myInfoEdit.cls
 						
 
 ############################################################################

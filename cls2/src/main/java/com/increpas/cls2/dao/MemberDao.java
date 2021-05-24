@@ -45,4 +45,27 @@ public class MemberDao {
 	public int addMember(MemberVO mVO) {
 		return sqlSession.insert("mSQL.addMember", mVO);
 	}
+	
+	// 내정보조회 전담 처리함수
+	public MemberVO getMyInfo(String id) {
+		return sqlSession.selectOne("mSQL.memberIdInfo", id);
+	}
+	
+	// 성별 아바타리스트조회 전담 처리함수
+	public List avtGenList(String gen) {
+		return sqlSession.selectList("mSQL.avtGenList", gen);
+	}
+	
+	// 내 정보 수정 전담 처리 함수
+	public int updateInfo(MemberVO mVO) {
+		return sqlSession.update("mSQL.editMyInfo", mVO);
+	}
 }
+
+
+
+
+
+
+
+

@@ -5,10 +5,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
-<script type="text/javascript" src="/cafe/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/cafe/js/w3color.js"></script>
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/user.css">
+<script type="text/javascript" src="/cls2/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/cls2/js/w3color.js"></script>
 <style type="text/css">
 	.avtimg {
 		width: 100px;
@@ -170,8 +170,8 @@
 		
 		// 홈버튼 클릭 이벤트 처리
 		$('#hbtn').click(function(){
-//			location.href = '/cafe/main.cafe';
-			$(location).attr('href', '/cafe/main.cafe');
+//			location.href = '/cls2/main.cls';
+			$(location).attr('href', '/cls2/main.cls');
 		});
 		
 		// form submit 이벤트
@@ -287,8 +287,9 @@
 <body>
 	<div class="w3-content mxw700 w3-center W3-margin-top">
 		<h1 class="w3-pink w3-card-4 w3-round-large">내 정보 수정</h1>
-		<form method="POST" action="/cafe/member/myInfoEditProc.cafe" name="frm" id="frm"
+		<form method="POST" action="/cls2/member/myInfoEditProc.cls" name="frm" id="frm"
 				class="w3-col w3-margin-top w3-margin-bottom w3-padding w3-card-4 w3-round-large">
+			<input type="hidden" name="id" value="${SID}">
 			<div class="w3-col">
 				<h4 class="w3-col m3 w3-right-align w3-text-grey">회원번호 : </h4>
 				<h4 class="w3-col m9 w3-text-grey">${DATA.mno}</h4>
@@ -335,7 +336,7 @@
 			</div>
 			<div class="w3-col">
 				<h4 class="w3-col m3 w3-right-align w3-text-grey">회원성별 : </h4>
-				<h4 class="w3-col m9 w3-text-grey">${DATA.gen}</h4>
+				<h4 class="w3-col m9 w3-text-grey">${DATA.gen eq 'M' ? '남자' : '여자'}</h4>
 			</div>
 			<div class="w3-col">
 				<h4 class="w3-col m3 w3-right-align w3-text-grey">아 바 타 : </h4>
@@ -343,9 +344,9 @@
 	<c:forEach var="data" items="${LIST}">
 						 	<div class="avtbox">
 						 		<label for="${data.ano}">
-						 			<img src="/cafe/img/avatar/${data.avatar}" class="w3-col avtimg">
+						 			<img src="/cls2/img/avatar/${data.avatar}" class="w3-col avtimg">
 						 		</label>
-						 		<input type="radio" name="avt" id="${data.ano}" value="${data.ano}">
+						 		<input type="radio" name="ano" id="${data.ano}" value="${data.ano}">
 						 	</div>
 	</c:forEach>
 				</div>
