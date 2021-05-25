@@ -26,6 +26,8 @@
 	<!-- 마이바티스에서 사용할 자바 타입의 별칭을 선언하는 부분 -->
 	<typeAliases>
 		<typeAlias alias="mVO" type="com.increpas.cls2.vo.MemberVO" />
+		<typeAlias alias="bVO" type="com.increpas.cls2.vo.BoardVO" />
+		<typeAlias alias="fVO" type="com.increpas.cls2.vo.FileVO" />
 		<typeAlias alias="page" type="com.increpas.cls2.util.PageUtil" />
 	</typeAliases>
 	<!--  
@@ -80,6 +82,7 @@
 			질의명령에 채워줘야 하는 데이터는 dao에서 채워주는 변수이름으로 작성해야 한다.
 		-->
 		<mapper resource="com/increpas/cls2/sql/MemberSQL.xml" />
+		<mapper resource="com/increpas/cls2/sql/GuestSQL.xml" />
 	</mappers>
 
 </configuration>

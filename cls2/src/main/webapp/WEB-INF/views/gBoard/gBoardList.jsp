@@ -42,7 +42,7 @@
 				url = '/cls2/member/logout.cls';
 				break;
 			case 'wbtn':
-				url = '/cls2/gboard/gBoardWrite.cls';
+				url = '/cls2/gBoard/gBoardWrite.cls';
 				break;
 			}
 			$(location).attr('href', url);
@@ -77,10 +77,10 @@
 			<div class="w3-rest w3-padding">
 				<div class="w3-col w3-border-bottom">
 					<span class="w3-text-left mgb10 ft10"><b>${data.id}</b></span>
-					<span class="w3-right mgb10 ft10">${data.sdate}</span>
+					<span class="w3-right mgb10 ft10">${data.wdate}</span>
 				</div>
 				<div class="w3-col w3-margin-top">
-					<span class="w3-col w3-padding ft12">${data.body}</span>
+					<span class="w3-col w3-padding ft12">${data.ebody}</span>
 				</div>
 			</div>
 		</div>

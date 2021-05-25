@@ -66,10 +66,8 @@ public class Member {
 	public ModelAndView loginProc(/* String id, String pw, */ MemberVO mVO, ModelAndView mv, 
 										HttpSession session, RedirectView rv) {
 		String view = "/cls2/";
-		if(isLogin(session)) {
-		} else {
+		if(!isLogin(session)) {
 			// 이 부분에서 로그인 처리...
-			
 			// 파라미터 데이터 출력
 			/*
 			System.out.println("********** parameter id : " + id);
@@ -81,6 +79,7 @@ public class Member {
 			System.out.println(mVO);
 			 */
 			int cnt = mDao.getLogin(mVO);
+			
 			if(cnt == 1) {
 				session.setAttribute("SID", mVO.getId());
 			} else {
@@ -92,8 +91,7 @@ public class Member {
 		
 		mv.setView(rv); // 리다이렉트 시킬때 사용하는 함수
 		/*
-			forward 방식으로 뷰를 호출하는 방법
-				mv.setViewName("뷰");
+			forward 방식으로 뷰를 호출하는 방법		:	mv.setViewName("뷰");
 		 */
 		return mv;
 	}
@@ -138,8 +136,8 @@ public class Member {
 		
 		if(cnt == 1) {
 			session.setAttribute("SID", mVO.getId());
-			System.out.println("############### mno : " + mVO.getMno());
-			rv.setUrl("/cls2/");
+//			System.out.println("############### mno : " + mVO.getMno());
+			rv.setUrl("/cls2/gBoard/gBoardWrite.cls");
 		} else {
 			rv.setUrl("/cls2/member/join.cls");
 		}
