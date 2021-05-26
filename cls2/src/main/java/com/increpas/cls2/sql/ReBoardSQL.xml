@@ -59,4 +59,19 @@
 		    #{bno}, #{title}, #{body}, #{mno}
 		)
 	</insert>
+	
+	<!-- 댓글 등록 질의명령 -->
+	<insert id="addReply" parameterType="bVO">
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			SELECT
+				NVL(MAX(rno) + 1, 100001)
+			FROM
+				reboard
+		</selectKey>
+		INSERT INTO
+		    reboard(rno, title, body, wmno, upno)
+		VALUES(
+		    #{bno}, #{title}, #{body}, #{mno}, #{upno}
+		)
+	</insert>
 </mapper>

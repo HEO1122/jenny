@@ -1,8 +1,8 @@
 package com.increpas.cls2.controller;
 
 import java.io.*;
+import java.util.*;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -34,6 +34,10 @@ public class Member {
 	
 	@RequestMapping("/login.cls")
 	public ModelAndView getLogin(HttpSession session, ModelAndView mv, RedirectView rv) {
+		/*
+		list.add("login Form start");
+		System.out.println(list.get(0));
+		*/
 		if(isLogin(session)) {
 			// 이 경우는 이미 로그인이 되어있는 경우이고
 			// 로그인 페이를 부르면 안되는 경우이다.

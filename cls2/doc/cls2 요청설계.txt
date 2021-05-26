@@ -171,12 +171,12 @@
 	처리함수	:	reBoardWriteProc()
 	뷰			:	
 					redirect ]
-						성공 : /cafe/reBoard/reBoardList.cafe
-						실패 : /cafe/reBoard/reBoardWrite.cafe
+						성공 : /cls2/reBoard/reBoardList.cls
+						실패 : /cls2/reBoard/reBoardWrite.cls
 	
 4. 댓글 쓰기 폼보기 요청
 	요청내용	:	/cls2/reBoard/reBoardReply.cls
-	파라미터	:	rno, nowPage
+	파라미터	:	rno(글번호), nowPage
 	컨트롤러	:	com.increpas.cls2.controller.ReBoard
 	처리함수	:	reBoardReply()
 	뷰			:	/WEB-INF/views/reBoard/reBoradReply.jsp

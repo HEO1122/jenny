@@ -69,11 +69,9 @@
 				var title = $(tmp1).html();
 				// 입력태그에 입력해준다.
 				$('#upno').val(tno);
-				$('#nowPage').val((row == '${PAGE.endCont}') ? 'L${PAGE.nowPage}' : '${PAGE.nowPage}');
+				$('#nowPage').val((row == '${PAGE.endCont}') ? '${PAGE.nowPage + 1}' : '${PAGE.nowPage}');
 				$('#title').val(title);
 				
-				
-				alert($('#upno').val() + ' | ' + $('#nowPage').val() + ' | ' + $('#title').val());
 				$('#frm').submit();
 			} else if(pre == 'e'){
 				$('#bno').val(tno);
@@ -117,10 +115,10 @@
 	</script>
 </c:if>
 	<form method="POST" action="/cls2/reBoard/reBoardReply.cls" id="frm" name="frm">
-		<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}">
-		<input type="hidden" name="bno" id="bno" value="0">
-		<input type="hidden" name="upno" id="upno" value="0">
-		<input type="hidden" name="title" id="title">
+		<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}" >
+		<input type="hidden" name="bno" id="bno" value="0" >
+		<input type="hidden" name="upno" id="upno" value="0" >
+		<input type="hidden" name="title" id="title" >
 	</form>
 	<div class="w3-content mxw750 w3-margin-top">
 		<header class="w3-col w3-card-4 mgb20">

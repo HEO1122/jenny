@@ -26,4 +26,9 @@ public class ReBoardDao {
 	public int addBoard(BoardVO bVO) {
 		return sqlSession.insert("reSQL.addReBoard", bVO);
 	}
+	
+	// 댓글 등록 전담 처리함수
+	public int addReply(BoardVO bVO) {
+		return sqlSession.insert("reSQL.addReply", bVO);
+	}
 }

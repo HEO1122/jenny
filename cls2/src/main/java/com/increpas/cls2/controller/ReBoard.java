@@ -144,4 +144,32 @@ public class ReBoard {
 		// 5. 반환값 반환하고
 		return mv;
 	}
+	
+	// 댓글 등록 요청
+	@RequestMapping("/reBoardReplyProc.cls")
+	public ModelAndView reBoardReplyProc(int nowPage, BoardVO bVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+		// 할일
+		// 1. 로그인체큰
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		
+		// 데이터베이스 작업하고
+		int cnt = reDao.addReply(bVO);
+		
+		// 결과에 따라 처리하고
+		if(cnt == 1) {
+			// 등록에 성공한 경우
+			rv.setUrl("/cls2/reBoard/reBoardList.cls?nowPage=" + nowPage);
+		} else {
+			// 등록에 실패한 경우
+			rv.setUrl("/cls2/reBoard/reBoardReply.cls");
+		}
+		mv.setView(rv);
+		
+		return mv;
+	}
 }
