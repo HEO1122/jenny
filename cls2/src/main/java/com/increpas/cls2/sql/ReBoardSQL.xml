@@ -93,4 +93,34 @@
 				            PRIOR rno = upno        
 				    )
 	</delete>
+	
+	<!-- 게시글 수정 데이터 조회 질의명령 -->
+	<select id="editReBoard" resultType="bVO" parameterType="int">
+		SELECT
+		    r.rno bno, r.title, r.body, r.wmno mno, r.upno, pr.title uptitle, savename avatar 
+		FROM
+		    reboard r, reboard pr, member, avatar
+		WHERE
+		    r.isShow = 'Y'
+		    AND r.upno = pr.rno(+)
+		    AND r.wmno = mno
+		    AND avt = ano
+		    AND r.rno = #{bno}
+	</select>
+	
+	<!-- 게시글 수정 처리 질의명령 -->
+	<update id="editProc" parameterType="bVO">
+		UPDATE
+			reboard
+		<set>
+			<if test="title neq null">
+				title = #{title},
+			</if>
+			<if test="body neq null">
+				body = #{body}
+			</if>
+		</set>
+		WHERE
+			rno = #{bno}
+	</update>
 </mapper>

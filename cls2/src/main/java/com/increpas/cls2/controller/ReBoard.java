@@ -203,4 +203,53 @@ public class ReBoard {
 		// 4. 반환값 반환하고
 		return mv;
 	}
+	
+	// 게시글 수정 폼보기 요청
+	@RequestMapping("/reBoardEdit.cls")
+	public ModelAndView reBoardEdit(int bno, int nowPage, ModelAndView mv, 
+									HttpSession session, RedirectView rv) {
+		// 할일
+		// 1. 로그인 검사
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		// 2. 데이터베이스조회
+		BoardVO bVO = reDao.getEditData(bno);
+		
+		// 3. 데이터 전달
+		mv.addObject("DATA", bVO);
+		mv.addObject("nowPage", nowPage);
+		// 4. 뷰 부르고
+		mv.setViewName("reBoard/reBoardEdit");
+		
+		// 5. 반환값 반환하고
+		return mv;
+	}
+	
+	// 게시글 수정 처리 요청 
+	@RequestMapping("/reBoardEditProc.cls")
+	public ModelAndView reBoardEditProc(int nowPage, BoardVO bVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+		
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		
+		int cnt = reDao.editProc(bVO);
+		if(cnt != 1) {
+			mv.addObject("MSG", "- 수정 처리 실패 -");
+		} else {
+			mv.addObject("MSG", "*** " + bVO.getBno() + " ] 번글 수정 처리 성공 ***");
+		}
+		
+		mv.addObject("nowPage", nowPage);
+		mv.addObject("PATH", "/cls2/reBoard/reBoardList.cls");
+		mv.setViewName("reBoard/redirectView");
+		return mv;
+	}
 }

@@ -41,6 +41,9 @@ public class PageUtil {
 	// totalPage 계산함수
 	public void calcPage() {
 		totalPage = (total % pageRow) == 0 ? ((total == 0) ? 1 : total / pageRow) : (total / pageRow + 1) ;
+		if(nowPage > totalPage) {
+			nowPage = totalPage;
+		}
 	}
 	
 	// 시작페이지 계산함수

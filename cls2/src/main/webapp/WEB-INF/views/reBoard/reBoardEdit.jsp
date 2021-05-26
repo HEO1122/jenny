@@ -5,17 +5,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" type="text/css" href="/cafe/css/w3.css">
-<link rel="stylesheet" type="text/css" href="/cafe/css/user.css">
-<script type="text/javascript" src="/cafe/js/jquery-3.6.0.min.js"></script>
-<script type="text/javascript" src="/cafe/js/w3color.js"></script>
+<link rel="stylesheet" type="text/css" href="/cls2/css/w3.css">
+<link rel="stylesheet" type="text/css" href="/cls2/css/user.css">
+<script type="text/javascript" src="/cls2/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="/cls2/js/w3color.js"></script>
 <style type="text/css"></style>
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('.w3-button').click(function(){
 			// 어떤버튼이 클릭되었는지 확인하고
 			var bid = $(this).attr('id');
-			var url = '/cafe/main.cafe';
+			var url = '/cls2/main.cls';
 			switch(bid){
 			case 'rbtn':
 				document.frm.reset();
@@ -74,12 +74,12 @@
 		<section class="w3-col">
 			<div class="w3-col w3-round-large w3-card-4 w3-margin-bottom w3-padding">
 				<div class="w3-col w120 w3-center pdAll10">
-					<img src="/cafe/img/avatar/${DATA.avatar}" class="inblock w3-circle avtBox100 border3px w3-card-2">
+					<img src="/cls2/img/avatar/${DATA.avatar}" class="inblock w3-circle avtBox100 border3px w3-card-2">
 					<span class="w3-col mgt10 ft10"><b>${SID}</b></span>
 				</div>
 				<div class="w3-rest w3-padding w3-border-left h100per">
-					<form method="POST" action="/cafe/reBoard/reBoardEditProc.cafe" name="frm" id="frm" class="w3-col">
-						<input type="hidden" name="rno" id="rno" value="${DATA.rno}">
+					<form method="POST" action="/cls2/reBoard/reBoardEditProc.cls" name="frm" id="frm" class="w3-col">
+						<input type="hidden" name="bno" id="bno" value="${DATA.bno}">
 						<input type="hidden" name="nowPage" id="nowPage" value="${nowPage}">
 	<c:if test="${DATA.upno ne 0}">
 	<%-- 					<input type="hidden" name="upno" id="upno" value="${DATA.upno}" disabled> --%>
