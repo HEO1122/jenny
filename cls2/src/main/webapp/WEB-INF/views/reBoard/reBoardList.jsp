@@ -80,7 +80,7 @@
 				$('#frm').attr('action', '/cls2/reBoard/reBoardEdit.cls');
 				$('#frm').submit();
 			} else if(pre == 'd'){
-				$('#rno').val(tno);
+				$('#bno').val(tno);
 				
 				$('#frm').attr('action', '/cls2/reBoard/reBoardDel.cls');
 				$('#frm').submit();
@@ -110,9 +110,18 @@
 </head>
 <body>
 <c:if test="${not empty param.msg}">
-	<script type="text/javascript">
-		alert('수정작업에 실패했습니다!');
-	</script>
+  <div id="id01" class="w3-modal" style="display: block;">
+    <div class="w3-modal-content w3-card-4">
+      <header class="w3-container w3-teal"> 
+        <span onclick="document.getElementById('id01').style.display='none'" 
+        class="w3-button w3-display-topright">&times;</span>
+        <h2>게시글 삭제 결과</h2>
+      </header>
+      <div class="w3-container w3-center">
+        <p>${param.msg}</p>
+      </div>
+    </div>
+  </div>
 </c:if>
 	<form method="POST" action="/cls2/reBoard/reBoardReply.cls" id="frm" name="frm">
 		<input type="hidden" name="nowPage" id="nowPage" value="${PAGE.nowPage}" >
@@ -146,13 +155,14 @@
 				<div class="w3-rest w3-padding h100per">
 					<div class="w3-col w3-border-bottom w3-border-grey">
 						<div class="w3-col w3-border-bottom">
-							<span class="mgt10 ft10"><b id="t${data.bno}">${data.title}</b></span>
+							<span class="mgt10 ft12 w3-text-grey"><b id="t${data.bno}">${data.title}</b></span>
 							<span class="w3-right mgb10 ft10">${data.sdate}</span>
 						</div>
 						<div class="w3-col w3-margin-top">
-							<span class="w3-col w3-padding ft12 bdminH">${data.ebody}</span>
+							<span class="w3-col w3-padding ft10 bdminH">${data.ebody}</span>
 						</div>
 					</div>
+<c:if test="${not empty SID}">
 					<div class="w3-col mgt10" id="row${data.rno}">
 						<span class="w3-button w3-blue w3-small w3-left w3-round-medium rebtn" id="r${data.bno}">댓글달기</span><!-- r100001 -->
 		<c:if test="${SID eq data.id}">
@@ -160,6 +170,7 @@
 						<span class="w3-button w3-red w3-small w3-right w3-round-medium rebtn" id="d${data.bno}">삭제하기</span>
 		</c:if>			
 					</div>
+</c:if>
 				</div>
 			</div>
 		</div>

@@ -74,4 +74,23 @@
 		    #{bno}, #{title}, #{body}, #{mno}, #{upno}
 		)
 	</insert>
+	
+	<!-- 게시글 삭제 질의명령 (하위글들도 삭제하기로 하자.) -->
+	<delete id="reboardDel" parameterType="int">
+		UPDATE
+		    reboard
+		SET
+		    isShow = 'N'
+		WHERE
+		    rno IN (
+				        SELECT
+				            rno
+				        FROM
+				            reboard
+				        START WITH
+				            rno = #{bno}
+				        CONNECT BY
+				            PRIOR rno = upno        
+				    )
+	</delete>
 </mapper>

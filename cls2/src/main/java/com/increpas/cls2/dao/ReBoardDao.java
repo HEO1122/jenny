@@ -31,4 +31,9 @@ public class ReBoardDao {
 	public int addReply(BoardVO bVO) {
 		return sqlSession.insert("reSQL.addReply", bVO);
 	}
+	
+	// 게시글 삭제 전담 처리함수
+	public int reboardDel(int bno) {
+		return sqlSession.delete("reSQL.reboardDel", bno);
+	}
 }

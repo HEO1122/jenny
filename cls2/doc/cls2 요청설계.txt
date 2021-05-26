@@ -193,11 +193,11 @@
 	
 6. 글 삭제 처리 요청
 	요청내용	:	/cls2/reBoard/reBoardDel.cls
-	파라미터	:	rno, nowPage
+	파라미터	:	bno, nowPage
 	컨트롤러	:	com.increpas.cls2.controller.ReBoard
 	처리함수	:	reBoardDel()
-	뷰			:	
-					redirect ]
+	뷰			:	/WEB-INF/views/reboard/redirect.jsp
+					==> redirect ]
 							성공&실패  : /cls2/reBoard/reBoardList.cls
 	
 7. 글 수정 폼보기 요청

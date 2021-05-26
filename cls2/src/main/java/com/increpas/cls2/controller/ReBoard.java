@@ -172,4 +172,35 @@ public class ReBoard {
 		
 		return mv;
 	}
+	
+	// 게시글 삭제 요청 처리 함수
+	@RequestMapping("/reBoardDel.cls")
+	public ModelAndView reBoardDel(int bno, int nowPage, 
+							ModelAndView mv, HttpSession session, RedirectView rv) {
+		// 할일
+		// 1. 로그인 검사하고
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		String view = "reBoard/redirectView";
+		// 2. 데이터베이스 작업하고
+		int cnt = reDao.reboardDel(bno);
+		// 3. 결과에 따라서 처리하고(데이터 + 뷰)
+		if(cnt == 0) {
+			// 작업에 실패한 경우
+			mv.addObject("MSG", "** 삭제 작업에 실패했습니다. **");
+		} else {
+			// 삭제처리작업에 성공한 경우
+			mv.addObject("MSG", "[ " + cnt + " ] 개의 게시물을 삭제했습니다.");
+		}
+		
+		mv.addObject("nowPage", nowPage);
+		mv.addObject("PATH", "/cls2/reBoard/reBoardList.cls");
+		mv.setViewName(view);
+		// 4. 반환값 반환하고
+		return mv;
+	}
 }
