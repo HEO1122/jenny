@@ -221,6 +221,8 @@ public class ReBoard {
 		
 		// 3. 데이터 전달
 		mv.addObject("DATA", bVO);
+		mv.addObject("TBODY", bVO.getBody().replaceAll("\r\n", " "));
+		System.out.println("^^^^^^^^^^^ " + bVO.getBody().replaceAll("\r\n", " "));
 		mv.addObject("nowPage", nowPage);
 		// 4. 뷰 부르고
 		mv.setViewName("reBoard/reBoardEdit");

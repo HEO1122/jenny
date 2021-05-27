@@ -1,13 +1,13 @@
 package com.increpas.cls2.vo;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.Time;
 import java.text.*;
 import java.util.*;
 
 public class BoardVO {
 	private int gno, rno, bno, upno, mno, ano, cnt, step;
-	private String id, name, title, uptitle, body, ebody, sdate, avatar;
+	private String id, name, title, uptitle, body, ebody, sdate, savename, avatar;
 	private Date wdate;
 	private Time wtime;
 	private ArrayList<FileVO> list;
@@ -100,9 +100,8 @@ public class BoardVO {
 		return sdate;
 	}
 	public void setSdate() {
-		SimpleDateFormat form1 = new SimpleDateFormat("yyyy/MM/dd");
-		SimpleDateFormat form2 = new SimpleDateFormat(" HH:mm:ss");
-		sdate = form1.format(wdate) + form2.format(wtime);
+		SimpleDateFormat form = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		sdate = form.format(wdate);
 	}
 	public void setSdate(Date wdate) {
 		SimpleDateFormat form1 = new SimpleDateFormat("yyyy/MM/dd");
@@ -110,6 +109,12 @@ public class BoardVO {
 	}
 	public void setSdate(String sdate) {
 		this.sdate = sdate;
+	}
+	public String getSavename() {
+		return savename;
+	}
+	public void setSavename(String savename) {
+		this.savename = savename;
 	}
 	public String getAvatar() {
 		return avatar;
