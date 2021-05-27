@@ -1,7 +1,6 @@
 package com.increpas.cls2.vo;
 
 import java.util.Date;
-import java.sql.Time;
 import java.text.*;
 import java.util.*;
 
@@ -9,7 +8,6 @@ public class BoardVO {
 	private int gno, rno, bno, upno, mno, ano, cnt, step;
 	private String id, name, title, uptitle, body, ebody, sdate, savename, avatar;
 	private Date wdate;
-	private Time wtime;
 	private ArrayList<FileVO> list;
 	
 	public int getGno() {
@@ -127,12 +125,7 @@ public class BoardVO {
 	}
 	public void setWdate(Date wdate) {
 		this.wdate = wdate;
-	}
-	public Time getWtime() {
-		return wtime;
-	}
-	public void setWtime(Time wtime) {
-		this.wtime = wtime;
+		setSdate();
 	}
 	public ArrayList<FileVO> getList() {
 		return list;
@@ -145,7 +138,7 @@ public class BoardVO {
 	public String toString() {
 		return "BoardVO : gno=" + gno + ", rno=" + rno + ", bno=" + bno + ", mno=" + mno + ", ano=" + ano + ", cnt="
 				+ cnt + ", step=" + step + ", id=" + id + ", name=" + name + ", title=" + title + ", body=" + body
-				+ ", sdate=" + sdate + ", avatar=" + avatar + ", wdate=" + wdate + ", wtime=" + wtime;
+				+ ", sdate=" + sdate + ", avatar=" + avatar + ", wdate=" + wdate ;
 	}
 	
 }
