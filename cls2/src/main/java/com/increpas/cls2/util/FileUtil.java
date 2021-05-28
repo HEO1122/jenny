@@ -74,7 +74,7 @@ public class FileUtil {
 	}
 	
 	// 다중파일 업로드 처리함수
-	public ArrayList<FileVO> saveProc(MultipartFile[] file, String dir) throws Exception {
+	public ArrayList<FileVO> saveProc(MultipartFile[] file, int bno, String dir) throws Exception {
 		// 파일 저장이름들을 기억할 변수
 		ArrayList<FileVO> list = new ArrayList<FileVO>();
 		
@@ -100,6 +100,7 @@ public class FileUtil {
 			fVO.setSavename(saveName);
 			fVO.setLen(file[i].getSize());
 			fVO.setDir(dir);
+			fVO.setBno(bno);
 			
 			// 리스트에 파일정보를 추가해준다.
 			list.add(fVO);

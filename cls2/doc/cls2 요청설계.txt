@@ -250,7 +250,6 @@
 					redirect ]
 						성공 : /cls2/board/board.cls
 						실패 : /cls2/board/boardWrite.cls
-	
 5. 게시글 수정 폼보기 요청
 	요청내용	:	/cls2/board/boardEdit.cls
 	파라미터	:	nowPage, bno
@@ -258,7 +257,26 @@
 	처리함수	:	boardEdit()
 	뷰			:	/WEB-INF/views/board/boardEdit.jsp
 	
-6. 게시글 수정 처리 요청
+6. 첨부파일 삭제 처리 요청
+	요청내용	:	/cls2/board/boardImgDel.cls
+	파라미터	:	fno
+	컨트롤러	:	com.increpas.cls2.controller.board.Board
+	처리함수	:	boardImgDel()
+	뷰			:	ajax ] json
+						
+7. 게시글 삭제 처리 요청
+	요청내용	:	/cls2/board/boardDel.cls
+	파라미터	:	bno, nowPage
+	컨트롤러	:	com.increpas.cafe.controller.Board
+	처리함수	:	boardDel()
+	뷰			:	
+					redirect ]
+						성공 : /cls2/board/board.cls
+						실패 : /cls2/board/boardEditDetail.cls
+	
+	
+	
+8. 게시글 수정 처리 요청
 	요청내용	:	/cls2/board/boardEditProc.cls
 	파라미터	:	nowPage, bno,[ title, body ], [file]
 	컨트롤러	:	com.increpas.cafe.controller.Board
@@ -267,11 +285,3 @@
 					redirect ]
 						성공 : /cls2/board/boardDetail.cls
 						실패 : /cls2/board/boardEdit.cls
-	
-7. 첨부파일 삭제 처리 요청
-	요청내용	:	/cls2/board/boardImgDel.cls
-	파라미터	:	fno
-	컨트롤러	:	com.increpas.cls2.controller.board.Board
-	처리함수	:	boardImgDel()
-	뷰			:	ajax ] json
-	

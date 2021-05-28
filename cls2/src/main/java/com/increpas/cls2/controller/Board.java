@@ -36,6 +36,8 @@ import com.increpas.cls2.util.*;
 public class Board {
 	@Autowired
 	BoardDao bDao;
+	@Autowired
+	FileUtil fUtil;
 	
 	/*
 	 * 게시글 리스트 보기 요청 처리함수
@@ -103,6 +105,188 @@ public class Board {
 		// 2. 뷰 셋팅하고
 		mv.setViewName("board/boardWrite");
 		// 3. 반환값 반환하고
+		return mv;
+	}
+	
+	/*
+	 * 게시글 등록 요청 처리함수
+	 */
+	@RequestMapping("/boardWriteProc.cls")
+	public ModelAndView boardWriteProc(BoardVO bVO, ModelAndView mv, HttpSession session, RedirectView rv) {
+		// 할일
+		// 1. 로그인 검사하고
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		// 2. 작성자 회원번호 꺼내오고 ==> 서브질의로 처리하기로 한다.
+		// 3. 게시글 데이터베이스 작업
+		int cnt = bDao.addBoard(bVO);
+		// 4. 첨부파일 작업하고
+		ArrayList<FileVO> list = null;
+		if(cnt == 1) {
+			try {
+				int count = 0;
+				list = fUtil.saveProc(bVO.getFile(), bVO.getBno(), "/img/upload/");
+				
+				// list의 VO에 게시글번호 채워주고
+				for(FileVO vo : list) {
+					// 5. 첨부파일 데이터베이스 작업
+					count = bDao.addFile(vo);
+				}
+				// 6. 결과에 따라서 처리해주고
+				if(count == list.size()) {
+					// 이 경우는 정상적으로 파일 정보를 모두 저장한 경우
+				} else {
+					// 데이터베이스 작업 도중 문제가 생긴경우
+					// 일반적으로 트랜젝션 처리를 해줘야 한다.
+				}
+			} catch (Exception e) {}
+			rv.setUrl("/cls2/board/board.cls");
+		} else {
+			rv.setUrl("/cls2/board/boardWrite.cls");
+		}
+		
+		// 뷰 부르고
+		mv.setView(rv);
+		
+		// 7. 반환값 반환해주고
+		return mv;
+	}
+	
+	/*
+	 * 게시글 수정 폼보기 요청
+	 */
+	@RequestMapping("/boardEdit.cls")
+	public ModelAndView boardEdit(BoardVO bVO, ModelAndView mv, 
+									HttpSession session, RedirectView rv) {
+		// 할일
+		// 1. 세션 검사하고
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		// 2. 데이터 가져오고
+		// 게시글데이터...
+		bVO = bDao.boardDetail(bVO.getBno());
+		// 첨부파일 데이터...
+		List list = bDao.subFileList(bVO.getBno());
+		// 3. 데이터전달하고
+		mv.addObject("DATA", bVO);
+		mv.addObject("LIST", list);
+		// 4. 뷰 설정하고
+		mv.setViewName("board/boardEdit");
+		
+		// 5. 반환값 반환하고
+		return mv;
+	}
+	
+	/*
+	 * 첨부파일 삭제 요청 처리함수
+	 */
+	@RequestMapping("/boardImgDel.cls")
+	@ResponseBody
+	public HashMap<String, String> boardImgDel(int fno, HttpSession session) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		// 할일
+		// 1. 로그인 검사
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			map.put("result", "REDIRECT");
+		}
+		// 2. 데이터베이스작업
+		int cnt = bDao.delSub(fno);
+		// 3. 결과에 따라서 처리해주고
+		if(cnt == 1) {
+			map.put("result", "YES");
+		} else {
+			map.put("result", "NO");
+		}
+		// 4. 데이터 반환하고
+		return map;
+	}
+	
+	/*
+	 * 게시글 삭제 요청 처리함수
+	 */
+	@RequestMapping("/boardDel.cls")
+	public ModelAndView boardDel(int nowPage, int bno, ModelAndView mv,
+									HttpSession session, RedirectView rv) {
+		// 세션검사하고
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		// 데이터베이스 처리하고
+		int cnt = bDao.boardDel(bno);
+		// 결과에 다라서 뷰 설정하고
+		if(cnt == 1) {
+			// 삭제에 성공한 경우
+			mv.addObject("PATH", "/cls2/board/board.cls");
+		} else {
+			// 삭제에 실패한 경우
+			mv.addObject("PATH", "/cls2/board/boardEdit.cls");
+			mv.addObject("BNO", bno);
+		}
+		
+		mv.addObject("nowPage", nowPage);
+		
+		mv.setViewName("board/redirectView");
+		// 반환해주고
+		return mv;
+	}
+	
+	/*
+	 * 게시글 수정 요청 처리함수
+	 */
+	@RequestMapping("/boardEditProc.cls")
+	public ModelAndView boardEditProc(BoardVO bVO, int nowPage, ModelAndView mv, 
+											HttpSession session, RedirectView rv) {
+		// 세션 검사하고
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		
+		mv.addObject("nowPage", nowPage);
+		mv.addObject("BNO", bVO.getBno());
+		// 게시글 수정 데이터베이스 처리
+		if(bVO.getTitle() != null || bVO.getBody() != null) {
+			int cnt = bDao.boadEdit(bVO);
+			if(cnt != 1) {
+				// 수정 작업에 실패한 경우
+				mv.addObject("PATH", "/cls2/board/boardEdit.cls");
+				return mv;
+			}
+		}
+		
+		if(bVO.getFile().length != 0) {
+			// 이 경우는 첨부한 파일이 존재하는 경우
+			ArrayList<FileVO> list = null;
+			try {
+				list = fUtil.saveProc(bVO.getFile(), bVO.getBno(), "/img/upload/");
+				
+				int count = 0;
+				
+				for(FileVO vo : list) {
+					count += bDao.addFile(vo);
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
+		mv.addObject("PATH", "/cls2/board/boardDetail.cls");
+		mv.setViewName("board/redirectView");
 		return mv;
 	}
 }

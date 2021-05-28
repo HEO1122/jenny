@@ -1,6 +1,9 @@
 package com.increpas.cls2.vo;
 
 import java.util.Date;
+
+import org.springframework.web.multipart.*;
+
 import java.text.*;
 import java.util.*;
 
@@ -9,7 +12,33 @@ public class BoardVO {
 	private String id, name, title, uptitle, body, ebody, sdate, savename, avatar;
 	private Date wdate;
 	private ArrayList<FileVO> list;
+	private MultipartFile upfile;
+	private MultipartFile[] file;
 	
+	/*
+		업로드된 파일을 기억할 변수는
+			MultipartFile
+		이라는 클래스 형태로 만들어야 한다.
+		그러면 그 안에 스트림 형태로 파일의 내용이 기억되게 된다.
+		
+		이때 주의사항
+			만약 name 속성값이 하나이면 일반변수로 만들어 주면 되고
+			같은 name 속성값을 사용하는 태그가 여러개면 (다중업로드의 경우)
+			배열변수로 만들어주면 된다.
+	 */
+	
+	public MultipartFile getUpfile() {
+		return upfile;
+	}
+	public void setUpfile(MultipartFile upfile) {
+		this.upfile = upfile;
+	}
+	public MultipartFile[] getFile() {
+		return file;
+	}
+	public void setFile(MultipartFile[] file) {
+		this.file = file;
+	}
 	public int getGno() {
 		return gno;
 	}

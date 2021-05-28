@@ -43,7 +43,7 @@
 	<!-- 게시글 상세보기 질의명령 -->
 	<select id="boardDetail" resultType="bVO" parameterType="int">
 		SELECT
-		    bno, title, body ebody, id, wdate
+		    bno, title, body, body ebody, id, wdate
 		FROM
 		    board b, member m
 		WHERE
@@ -52,13 +52,96 @@
 	</select>
 	
 	<!-- 첨부파일 조회 질의명령 -->
-	<select id="subFile" resultType="bVO" parameterType="int">
+	<select id="subFile" resultType="fVO" parameterType="int">
 		SELECT
-		    savename
+		    fno, savename
 		FROM
 		    upfile
 		WHERE
 		    fbno = #{bno}
 		    AND isshow = 'Y'
 	</select>
+	
+	<!-- 게시글 등록 질의명령 -->
+	<insert id="addBoard" parameterType="bVO">
+		<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+			SELECT
+				NVL(MAX(bno) + 1, 100001)
+			FROM
+				board
+		</selectKey>
+		INSERT INTO
+		    board(bno, title, body, bmno)
+		VALUES(
+		    #{bno}, #{title}, #{body}, 
+		    (
+		        SELECT
+		            mno
+		        FROM
+		            member
+		        WHERE
+		            id = #{id}
+		    )
+		)
+	</insert>
+	
+	<!-- 파일 정보 등록 질의명령 -->
+	<insert id="addFile" parameterType="fVO">
+		<selectKey keyProperty="fno" resultType="int" order="BEFORE">
+			SELECT
+				NVL(MAX(fno) + 1, 100001)
+			FROM
+				upfile
+		</selectKey>
+		INSERT INTO
+		    upfile(fno, oriname, savename, len, dir, fbno)
+		VALUES(
+		    #{fno}, #{oriname}, #{savename}, #{len}, #{dir}, #{bno}
+		)
+	</insert>
+	
+	<!-- 첨부파일 삭제 질의명령 -->
+	<update id="delSub" parameterType="int">
+		UPDATE
+		    upfile
+		SET
+		    isshow = 'N'
+		WHERE
+		    fno = #{fno}
+	</update>
+	
+	<!-- 게시글 삭제 질의명령 -->
+	<update id="boardDel" parameterType="int">
+		UPDATE
+			board
+		SET
+			isshow = 'N'
+		WHERE
+			bno = #{bno}
+	</update>
+	
+	<!--  
+		myBatis 비교 연산자
+			
+			eq	: ==
+			neq	: !=
+	-->
+	
+
+	<!-- 게시글 수정 질의명령 -->
+	<update id="editBoard" parameterType="bVO">
+		UPDATE
+			board
+		<set>
+			<if test="title neq null">
+				title = #{title},
+			</if>
+			<if test="body neq null">
+				body = #{body},
+			</if>
+		</set>
+		WHERE
+			bno = #{bno}
+	</update>
+	
 </mapper>

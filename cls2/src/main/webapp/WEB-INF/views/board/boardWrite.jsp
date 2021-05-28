@@ -178,6 +178,7 @@
 		<!-- form 태그 -->
 		<form method="POST" action="/cls2/board/boardWriteProc.cls" name="frm" id="frm" encType="multipart/form-data"
 			class="w3-col w3-padding w3-margin-bottom w3-card-4">
+			<input type="hidden" name="id" value="${SID}">
 			<div class="w3-col w3-margin-top pdb10 w3-border-bottom w3-border-light-grey">
 				<label for="title" class="w3-col w150 w3-center w3-text-grey ft14">글제목</label>
 				<div class="w3-rest pdr30">
