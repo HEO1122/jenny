@@ -260,7 +260,7 @@ public class Board {
 		mv.addObject("BNO", bVO.getBno());
 		// 게시글 수정 데이터베이스 처리
 		if(bVO.getTitle() != null || bVO.getBody() != null) {
-			int cnt = bDao.boadEdit(bVO);
+			int cnt = bDao.boardEdit(bVO);
 			if(cnt != 1) {
 				// 수정 작업에 실패한 경우
 				mv.addObject("PATH", "/cls2/board/boardEdit.cls");
@@ -268,7 +268,7 @@ public class Board {
 			}
 		}
 		
-		if(bVO.getFile().length != 0) {
+		if(bVO.getFile() != null) {
 			// 이 경우는 첨부한 파일이 존재하는 경우
 			ArrayList<FileVO> list = null;
 			try {

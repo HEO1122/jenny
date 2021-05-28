@@ -63,7 +63,7 @@ public class BoardDao {
 	}
 	
 	// 게시글 수정 전담 처리함수
-	public int boadEdit(BoardVO bVO) {
+	public int boardEdit(BoardVO bVO) {
 		return sqlSession.update("bSQL.editBoard", bVO);
 	}
 }

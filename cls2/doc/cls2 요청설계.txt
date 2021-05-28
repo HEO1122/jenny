@@ -267,7 +267,7 @@
 7. 게시글 삭제 처리 요청
 	요청내용	:	/cls2/board/boardDel.cls
 	파라미터	:	bno, nowPage
-	컨트롤러	:	com.increpas.cafe.controller.Board
+	컨트롤러	:	com.increpas.cls2.controller.Board
 	처리함수	:	boardDel()
 	뷰			:	
 					redirect ]
@@ -279,7 +279,7 @@
 8. 게시글 수정 처리 요청
 	요청내용	:	/cls2/board/boardEditProc.cls
 	파라미터	:	nowPage, bno,[ title, body ], [file]
-	컨트롤러	:	com.increpas.cafe.controller.Board
+	컨트롤러	:	com.increpas.cls2.controller.Board
 	처리함수	:	boardEditProc()
 	뷰			:	
 					redirect ]
