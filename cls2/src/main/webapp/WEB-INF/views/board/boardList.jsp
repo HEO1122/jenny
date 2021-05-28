@@ -105,7 +105,7 @@
 				<span class="w3-col w150 w3-center w3-border-right">${data.bno}</span>
 				<span class="w3-col w250 w3-center w3-border-right">${data.title}</span>
 				<span class="w3-col w100 w3-center w3-border-right">${data.id}</span>
-				<div class="w3-rest w3-center">${data.wdate}</div>
+				<div class="w3-rest w3-center">${data.sdate}</div>
 			</div>
 	</c:forEach>
 	<c:if test="${empty LIST}">

@@ -2,10 +2,13 @@ package com.increpas.cls2.controller;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.*;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.increpas.cls2.dao.*;
 import com.increpas.cls2.vo.*;
@@ -51,6 +54,10 @@ public class Board {
 		page.setPage(page.getNowPage(), total, 5, 5);
 		
 		List list = bDao.boardList(page);
+		for(Object o : list) {
+			BoardVO bVO = (BoardVO) o;
+			bVO.setSdate(bVO.getWdate());
+		}
 		
 		// 데이터 전달하고
 		mv.addObject("PAGE", page);
@@ -77,6 +84,25 @@ public class Board {
 		mv.addObject("nowPage", nowPage);
 		// 뷰 부르고
 		mv.setViewName("board/boardDetail");
+		return mv;
+	}
+	
+	/*
+	 * 게시글 작성 폼보기 요청 처리함수
+	 */
+	@RequestMapping("/boardWrite.cls")
+	public ModelAndView boardWrite(ModelAndView mv, HttpSession session, RedirectView rv) {
+		// 할일
+		// 1. 로그인 검사하고
+		String sid = (String) session.getAttribute("SID");
+		if(sid == null) {
+			rv.setUrl("/cls2/member/login.cls");
+			mv.setView(rv);
+			return mv;
+		}
+		// 2. 뷰 셋팅하고
+		mv.setViewName("board/boardWrite");
+		// 3. 반환값 반환하고
 		return mv;
 	}
 }
