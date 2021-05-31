@@ -4,6 +4,8 @@ import java.util.*;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.increpas.cls2.dao.*;
 import com.increpas.cls2.service.*;
 import com.increpas.cls2.vo.*;
+import com.increpas.home.HomeController;
 import com.increpas.cls2.util.*;
 
 /**
@@ -41,6 +44,8 @@ public class Board {
 	FileUtil fUtil;
 	@Autowired
 	BoardService bSrvc;
+	
+	private static final Logger log1 = LoggerFactory.getLogger(Board.class);
 	
 	/*
 	 * 게시글 리스트 보기 요청 처리함수
@@ -156,8 +161,10 @@ public class Board {
 		*/
 		try{
 			bSrvc.insertBoard(bVO, rv);
+			log1.info("*** " + sid + " ] 님 게시글 등록 성공 ***");
 		} catch(Exception e) {
-			System.out.println("##### 게시글 추가 실패 #####");
+			log1.info("##### " + sid + " ] 님 게시글 등록 실패 #####");
+//			System.out.println("##### 게시글 추가 실패 #####");
 		}
 		// 뷰 부르고
 		mv.setView(rv);
