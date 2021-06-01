@@ -1,5 +1,7 @@
 package com.increpas.cls2.controller;
 
+import java.util.*;
+
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +34,10 @@ public class Survey {
 	 */
 	@RequestMapping("/surveyList.cls")
 	public ModelAndView surveyList(ModelAndView mv) {
-		
+		// 데이터베이스 조회하고
+		List list = sDao.getList();
+		// 데이터 전달하고
+		mv.addObject("LIST", list);
 		// 뷰 설정
 		mv.setViewName("survey/surveyList");
 		return mv;

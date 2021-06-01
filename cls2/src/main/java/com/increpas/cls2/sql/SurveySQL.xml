@@ -18,7 +18,7 @@
 	<!-- 진행중인 설물조사 리스트 조회 질의명령 -->
 	<select id="ingSrvy" resultType="sVO">
 		SELECT
-		    sino, title
+		    sino, title, enddate
 		FROM
 		    surveyInfo
 		WHERE

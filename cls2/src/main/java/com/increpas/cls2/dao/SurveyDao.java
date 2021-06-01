@@ -1,5 +1,7 @@
 package com.increpas.cls2.dao;
 
+import java.util.*;
+
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 
@@ -24,5 +26,12 @@ public class SurveyDao {
 	 */
 	public int getPCount() {
 		return sqlSession.selectOne("sSQL.psntCount");
+	}
+	
+	/*
+	 * 현재 진행중인 설문 리스트 조회 전담 처리함수
+	 */
+	public List getList() {
+		return sqlSession.selectList("sSQL.ingSrvy");
 	}
 }
