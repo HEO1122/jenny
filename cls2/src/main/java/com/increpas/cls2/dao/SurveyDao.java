@@ -5,6 +5,8 @@ import java.util.*;
 import org.mybatis.spring.*;
 import org.springframework.beans.factory.annotation.*;
 
+import com.increpas.cls2.vo.*;
+
 /**
  * 	이 클래스는 설문조사 관련 데이터베이스 작업을 전담처리할 클래스
  * @author	전은석
@@ -47,5 +49,12 @@ public class SurveyDao {
 	 */
 	public List exList(int qno) {
 		return sqlSession.selectList("sSQL.selEx", qno);
+	}
+	
+	/*
+	 * 설문응답 추가 전담 처리함수
+	 */
+	public int insertAnswer(SurveyVO sVO) {
+		return sqlSession.insert("sSQL.addAnswer", sVO);
 	}
 }

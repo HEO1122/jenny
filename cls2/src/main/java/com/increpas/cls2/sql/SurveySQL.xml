@@ -50,4 +50,26 @@
 		ORDER BY
 		    exno ASC
 	</select>
+	
+	<!-- 설문응답 질의명령 -->
+	<insert id="addAnswer" parameterType="sVO">
+		INSERT INTO
+		    survey(sno, smno, srv_qno)
+		VALUES(
+		    (
+		        SELECT
+		            NVL(MAX(sno) + 1, 100001)
+		        FROM
+		            survey
+		    ),
+		    (
+		        SELECT
+		            mno
+		        FROM
+		            member
+		        WHERE
+		            id = #{id}
+		    ), #{qno}
+		)
+	</insert>
 </mapper>

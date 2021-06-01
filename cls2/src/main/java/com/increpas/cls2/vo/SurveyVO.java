@@ -157,11 +157,11 @@ public class SurveyVO {
 	}
 	@Override
 	public String toString() {
-		return "SurveyVO : sino=" + sino + ", qno=" + qno + ", sno=" + sno +
-				", mno=" + mno + ", exno=" + exno + 
-				", sqgroup=" + sqgroup + ", cnt=" + 
-				cnt + ", totalCnt=" + totalCnt + ", per=" + 
-				per + ", id=" + id + ", title=" + title + 
-				", body=" + body + ", ex=" + ex + ", indate=" + indate ;
+		return "{ sino:" + sino + ", qno:" + qno + ", sno:" + sno +
+				", mno:" + mno + ", exno:" + exno + 
+				", sqgroup:" + sqgroup + ", cnt:" + 
+				cnt + ", totalCnt:" + totalCnt + ", per:" + 
+				per + ", id:" + id + ", title:" + title + 
+				", body:" + body + ", ex:" + ex + ", indate:" + indate + " }" ;
 	}
 }

@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
 import com.increpas.cls2.dao.*;
+import com.increpas.cls2.service.SurveyService;
 import com.increpas.cls2.vo.*;
 
 /**
@@ -31,6 +32,8 @@ import com.increpas.cls2.vo.*;
 public class Survey {
 	@Autowired
 	SurveyDao sDao;
+	@Autowired
+	SurveyService sSrvc;
 	
 	/*
 		진행중인 설문 리스트 요청 처리함수
@@ -64,9 +67,23 @@ public class Survey {
 		// 데이터 전달하고
 		mv.addObject("TITLE", sVO.getTitle());
 		mv.addObject("LIST", list);
+		mv.addObject("LEN", list.size());
 		
 		// 뷰 부르고
 		mv.setViewName("survey/survey");
+		return mv;
+	}
+	
+	@RequestMapping("/surveyProc.cls")
+	public ModelAndView surveyProc(SurveyVO sVO, ModelAndView mv, RedirectView rv, HttpSession session) {
+		try{
+			sSrvc.addSrvyService(sVO, rv, session);
+		} catch(Exception e) {
+			rv.setUrl("/cls2/survey/survey.cls");
+			e.printStackTrace();
+		}
+		
+		mv.setView(rv);
 		return mv;
 	}
 }
