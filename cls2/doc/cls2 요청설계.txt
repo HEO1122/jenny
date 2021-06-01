@@ -296,3 +296,11 @@
 	컨트롤러	:	com.increpas.cls2.controller.Survey
 	처리함수	:	surveyList()
 	뷰			:	/WEB-INF/views/survey/surveyList.jsp
+	
+2. 설문조사 페이지 요청
+	요청내용	:	/cls2/survey/survey.cls
+	파라미터	:	sino, title
+	컨트롤러	:	com.increpas.cls2.controller.Survey
+	처리함수	:	surveyDetail()
+	뷰			:	/WEB-INF/views/survey/survey.jsp
+	

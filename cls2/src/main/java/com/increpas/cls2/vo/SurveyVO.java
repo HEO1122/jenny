@@ -19,6 +19,21 @@ public class SurveyVO {
 	private double per;
 	private String id, title, body, ex, indate, sdate, edate;
 	private Date startdate, enddate, adate;
+	private int[] qnolist;
+	private ArrayList<SurveyVO> list; // 보기 정보를 기억할 변수
+	
+	public int[] getQnolist() {
+		return qnolist;
+	}
+	public void setQnolist(int[] qnolist) {
+		this.qnolist = qnolist;
+	}
+	public ArrayList<SurveyVO> getList() {
+		return list;
+	}
+	public void setList(ArrayList<SurveyVO> list) {
+		this.list = list;
+	}
 	public int getSino() {
 		return sino;
 	}

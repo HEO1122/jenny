@@ -34,4 +34,18 @@ public class SurveyDao {
 	public List getList() {
 		return sqlSession.selectList("sSQL.ingSrvy");
 	}
+	
+	/*
+	 * 설문문항 리스트 조회 전담 처리함수
+	 */
+	public List questList(int sino) {
+		return sqlSession.selectList("sSQL.selQuest", sino);
+	}
+	
+	/*
+	 * 설문보기 리스트 조회 전담 처리함수
+	 */
+	public List exList(int qno) {
+		return sqlSession.selectList("sSQL.selEx", qno);
+	}
 }
