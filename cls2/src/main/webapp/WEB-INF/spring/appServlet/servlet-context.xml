@@ -30,5 +30,7 @@
 		<beans:property name="suffix" value=".jsp" />
 	</beans:bean>
 	
+	<beans:bean id="msDao" class="com.increpas.home.dao.SurveyDao" />
+	
 	<context:component-scan base-package="com.increpas.home" />
 </beans:beans>
