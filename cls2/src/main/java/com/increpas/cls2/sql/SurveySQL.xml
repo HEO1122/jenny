@@ -14,4 +14,14 @@
 		WHERE
 			sysdate BETWEEN startdate AND enddate
 	</select>
+	
+	<!-- 진행중인 설물조사 리스트 조회 질의명령 -->
+	<select id="ingSrvy" resultType="sVO">
+		SELECT
+		    sino, title
+		FROM
+		    surveyInfo
+		WHERE
+		    sysdate BETWEEN startdate AND enddate
+	</select>
 </mapper>

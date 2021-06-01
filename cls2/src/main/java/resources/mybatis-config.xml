@@ -28,6 +28,7 @@
 		<typeAlias alias="mVO" type="com.increpas.cls2.vo.MemberVO" />
 		<typeAlias alias="bVO" type="com.increpas.cls2.vo.BoardVO" />
 		<typeAlias alias="fVO" type="com.increpas.cls2.vo.FileVO" />
+		<typeAlias alias="sVO" type="com.increpas.cls2.vo.SurveyVO" />
 		<typeAlias alias="page" type="com.increpas.cls2.util.PageUtil" />
 	</typeAliases>
 	<!--  

@@ -84,6 +84,9 @@
 			case 'board':
 				url = '/cls2/board/board.cls';
 				break;
+			case 'survey':
+				url = '/cls2/survey/surveyList.cls';
+				break;
 			}
 			
 			$(location).attr('href', url);
