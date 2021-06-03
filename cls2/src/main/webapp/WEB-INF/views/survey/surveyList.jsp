@@ -29,7 +29,7 @@
 </script>
 </head>
 <body>
-	<form method="POST" action="/cls2/survey/survey.cls" id="frm" name="frm">
+	<form method="POST" action="/cls2/survey/surveyResult.cls" id="frm" name="frm">
 		<input type="hidden" name="sino" id="sino">
 		<input type="hidden" name="title" id="title">
 	</form>

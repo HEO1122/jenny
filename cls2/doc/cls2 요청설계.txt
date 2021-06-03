@@ -304,3 +304,10 @@
 	처리함수	:	surveyDetail()
 	뷰			:	/WEB-INF/views/survey/survey.jsp
 	
+3. 설문 결과 페이지 요청
+	요청내용	:	/cls2/survey/surveyResult.cls
+	파라미터	:	sino, title
+	컨트롤러	:	com.increpas.cls2.controller.Survey
+	처리함수	:	surveyResult()
+	뷰			:	/WEB-INF/views/survey/surveyResult.jsp
+	

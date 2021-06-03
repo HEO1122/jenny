@@ -57,4 +57,11 @@ public class SurveyDao {
 	public int insertAnswer(SurveyVO sVO) {
 		return sqlSession.insert("sSQL.addAnswer", sVO);
 	}
+	
+	/*
+	 * 설문 응답 결과 조회 전담 처리함수
+	 */
+	public List getExResult(SurveyVO sVO) {
+		return sqlSession.selectList("sSQL.resultEx", sVO);
+	}
 }

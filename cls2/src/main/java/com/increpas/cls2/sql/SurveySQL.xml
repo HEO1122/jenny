@@ -72,4 +72,43 @@
 		    ), #{qno}
 		)
 	</insert>
+	
+	<!-- 응답 보기 결과 조회 질의명령 -->
+	<select id="resultEx" resultType="sVO" parameterType="sVO">
+		SELECT
+		    sqno qno, exno, sqbody ex, NVL(cnt, 0) cnt, total totalCnt, ROUND(NVL(cnt, 0) / total * 100, 2) per
+		FROM
+		    surveyQuest,
+		    (
+		        SELECT
+		            srv_qno, count(*) cnt
+		        FROM
+		            survey
+		        GROUP BY
+		            srv_qno
+		    ),
+		    (
+		        SELECT
+		            count(*) total
+		        FROM
+		            (
+		                SELECT
+		                    smno
+		                FROM
+		                    survey, surveyQuest
+		                WHERE
+		                    srv_qno = sqno
+		                    AND sq_sino = #{sino}
+		                GROUP BY
+		                    smno
+		            )    
+		    )
+		WHERE
+		    sqno = srv_qno(+)
+		    AND sqgroup = #{sqgroup}
+		    AND exno IS NOT NULL
+		ORDER BY
+		    exno
+	</select>
+	
 </mapper>

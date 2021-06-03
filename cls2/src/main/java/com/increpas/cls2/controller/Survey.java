@@ -86,4 +86,24 @@ public class Survey {
 		mv.setView(rv);
 		return mv;
 	}
+	
+	@RequestMapping("/surveyResult.cls")
+	public ModelAndView surveyResult(SurveyVO sVO, ModelAndView mv) {
+		// 할일
+		// 문항리스트 꺼내고
+		ArrayList<SurveyVO> list = (ArrayList<SurveyVO>) sDao.questList(sVO.getSino());
+		// 문항의 보기결과 리스트 꺼내서 채워주고
+		for(SurveyVO s : list) {
+			ArrayList<SurveyVO> l = (ArrayList<SurveyVO>) sDao.getExResult(s);
+			s.setList(l);
+		}
+		
+		// 데이터 전달하고
+		mv.addObject("TITLE", sVO.getTitle());
+		mv.addObject("LIST", list);
+		mv.addObject("LEN", list.size());
+		
+		mv.setViewName("survey/surveyResult");
+		return mv;
+	}
 }
