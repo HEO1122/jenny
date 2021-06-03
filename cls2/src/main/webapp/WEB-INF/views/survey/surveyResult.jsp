@@ -55,8 +55,9 @@
 					<h3 class="" id="${data.qno}">${st.count}. ${data.body}</h3>
 					<div class="pdl50">
 			<c:forEach var="sub" items="${data.list}">
-						<h5 class="">
-							${sub.exno}) ${sub.ex} : <span class="ft10 w3-text-blue w3-right">${sub.per} %</span>
+						<h5 class="w3-display-container">
+							<span>${sub.exno}) ${sub.ex}</span>
+							<span class="ft10 w3-text-blue w3-right w3-display-bottomright">${sub.per} %</span>
 						</h5>
 						<div class="w3-col pdl50">
 							<div class="w3-col w3-border w3-border-grey h10 mgb20">
