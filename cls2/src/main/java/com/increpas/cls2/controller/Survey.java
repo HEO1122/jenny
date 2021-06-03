@@ -7,6 +7,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.stereotype.*;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -55,6 +56,19 @@ public class Survey {
 	@RequestMapping("/survey.cls")
 	public ModelAndView surveyDetail(SurveyVO sVO, ModelAndView mv, HttpSession session, RedirectView rv) {
 		// 할일
+		
+		// 설문에 참여했는지 카운트 가져오고VO.getTitle());
+		int cnt = sDao.answerCnt(sVO);
+		if(cnt == 1) {
+			// 이미 설문에 참여한 경우
+			mv.addObject("PATH", "/cls2/survey/surveyResult.cls");
+			mv.addObject("TITLE", sVO.getTitle());
+			mv.addObject("SINO", sVO.getSino());
+			mv.setViewName("survey/redirectPage");
+			
+			return mv;
+		}
+		
 		// 문항리스트 꺼내고
 		ArrayList<SurveyVO> list = (ArrayList<SurveyVO>) sDao.questList(sVO.getSino());
 		// 문항의 보기리스트 꺼내서 채워주고
@@ -87,7 +101,7 @@ public class Survey {
 		return mv;
 	}
 	
-	@RequestMapping("/surveyResult.cls")
+	@RequestMapping(value = "/surveyResult.cls", params = { "title", "sino" }/* , method=RequestMethod.POST */)
 	public ModelAndView surveyResult(SurveyVO sVO, ModelAndView mv) {
 		// 할일
 		// 문항리스트 꺼내고

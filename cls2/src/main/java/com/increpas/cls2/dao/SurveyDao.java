@@ -64,4 +64,11 @@ public class SurveyDao {
 	public List getExResult(SurveyVO sVO) {
 		return sqlSession.selectList("sSQL.resultEx", sVO);
 	}
+	
+	/*
+	 * 로그인 회원 설문 참여 카운트 조회 전담 처리함수
+	 */
+	public int answerCnt(SurveyVO sVO) {
+		return sqlSession.selectOne("sSQL.answerCount", sVO);
+	}
 }

@@ -111,4 +111,31 @@
 		    exno
 	</select>
 	
+	<!-- 설문 참여여부 조회 질의명령 -->
+	<select id="answerCount" resultType="int" parameterType="sVO">
+		SELECT
+		    count(*)
+		FROM
+		    (
+		        SELECT
+		            smno
+		        FROM
+		            survey, surveyQuest
+		        WHERE
+		            sqno = srv_qno
+		            AND sq_sino = #{sino}
+		        GROUP BY
+		            smno
+		        HAVING
+		            smno = (
+		                        SELECT
+		                            mno
+		                        FROM
+		                            member
+		                        WHERE
+		                            id = #{id}
+		                    )
+		    )
+	</select>
+	
 </mapper>
