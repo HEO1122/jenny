@@ -56,7 +56,7 @@ public class Survey {
 	@RequestMapping("/survey.cls")
 	public ModelAndView surveyDetail(SurveyVO sVO, ModelAndView mv, HttpSession session, RedirectView rv) {
 		// 할일
-		
+		System.out.println("******************** survey.cls 처리 ***************");
 		// 설문에 참여했는지 카운트 가져오고
 		int cnt = sDao.answerCnt(sVO);
 		if(cnt == 1) {

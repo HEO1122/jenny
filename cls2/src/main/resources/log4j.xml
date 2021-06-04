@@ -13,7 +13,6 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-
 	<!-- File Appenders -->
 	<appender name="file" class="org.apache.log4j.FileAppender">
 	<!-- 	<param name="File" value="d:/log/log.log" /> -->
